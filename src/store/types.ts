@@ -1,3 +1,8 @@
+export type GlobalOptions = {
+    /** 自定义css */
+    style?: string;
+};
+
 /** 矩形属性 */
 export type RectProtoType = {
     width?: string;
@@ -8,6 +13,14 @@ export type RectProtoType = {
     bottom?: string;
     /** 圆角 */
     round?: string;
+    marginTop?: string;
+    marginLeft?: string;
+    marginRight?: string;
+    marginBottom?: string;
+    paddingTop?: string;
+    paddingLeft?: string;
+    paddingRight?: string;
+    paddingBottom?: string;
 };
 
 /** 文字属性 */
@@ -18,6 +31,10 @@ export type TextProtoType = {
 
 /** background属性 */
 export type BackgroundProtoType = {
+    /** 设置项可选(不转换) */
+    conf?: {
+        videoSource?: string;
+    };
     /** 背景颜色 */
     color?: string;
     /** background-size属性 */
@@ -36,14 +53,14 @@ export type BackgroundProtoType = {
     }
 };
 
+/** 所有模块 */
+export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut';
+/** 基础模块 */
 export type DefineRect = {
-    rect?: RectProtoType,
-    background?: BackgroundProtoType,
-    text?: TextProtoType
+    rect?: RectProtoType;
+    background?: BackgroundProtoType;
+    text?: TextProtoType;
 };
-
-
-export type Keys = 'wallpaper' | 'searchbar';
 /**
  * 配置项
  * {[key]: {[name]: [value]}}
@@ -51,5 +68,15 @@ export type Keys = 'wallpaper' | 'searchbar';
  * 最多嵌套两层object
  */
 export type StylesOption = {
-    [key in Keys]: DefineRect;
+    [key in Keys]?: DefineRect;
 }
+
+/** 快捷导航 */
+export type Shortcut = {
+    label: string;
+    url: string;
+    icon?: string;
+    color?: string;
+    background: string;
+    sort: number;
+};

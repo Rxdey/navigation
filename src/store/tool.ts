@@ -13,9 +13,10 @@ export const options2CSSVar = (options: Record<string, any>, name = '') => {
         const target = options[n];
         if (!target) return p;
         if (Object.prototype.toString.call(target) === '[object Object]') {
+            if (n === 'conf') return p;
             res = options2CSSVar(target, name ? `${name}-${n}` : n);
         } else {
-            res = `--${name}-${n}: ${options[n]};`;
+            res = `--${name}-${n}: ${target};`;
         }
         return p += res;
     }, '');

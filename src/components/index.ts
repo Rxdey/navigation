@@ -1,2 +1,2 @@
 export { default as Wallpaper } from './Wallpaper/Wallpaper.vue';
-export { default as SearchBar } from './SearchBar/SearchBar.vue';
+export { default as Navigation } from './Navigation/Navigation.vue';

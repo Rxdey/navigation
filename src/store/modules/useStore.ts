@@ -1,34 +1,18 @@
 import { defineStore } from 'pinia';
 import type { StylesOption } from '../types';
+import { DEFAULT_OPTIONS } from '../define';
 import { options2CSSVar } from '@/store/tool';
 
-const defaultOptions: StylesOption = {
-    wallpaper: {
-        background: {
-            color: '#000',
-            size: 'cover',
-            repeat: 'no-repeat',
-            position: 'center',
-            image: 'url(/img/bg/bg.jpg)',
-            blur: '0px',
-            mask: {
-                alpha: 0.30
-            }
-        }
-    },
-    searchbar: {
-        rect: {
-            width: '90%',
-            round: '90px',
-            top: '30%',
-        }
-    }
-};
 
 const useStore = defineStore('main', {
     state: () => ({
         loading: false,
-        stylesOption: defaultOptions
+        /** 全局设置 */
+        global: {},
+        /** 模块基础样式配置 */
+        stylesOption: DEFAULT_OPTIONS,
+        /** 快捷方式列表 */
+        shortcuts: []
     }),
     actions: {
 
@@ -38,7 +22,9 @@ const useStore = defineStore('main', {
         cssOptionsArray(state) {
             const res: any = {};
             Object.keys(state.stylesOption).forEach(n => {
-                res[n as any] = options2CSSVar(state.stylesOption[n as keyof StylesOption], n).split(';').filter(e => e);
+                const o = state.stylesOption[n as keyof StylesOption];
+                if (!o) return;
+                res[n as any] = options2CSSVar(o, n).split(';').filter(e => e);
             });
             return res;
         },
