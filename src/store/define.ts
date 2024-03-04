@@ -2,36 +2,45 @@ import type { StylesOption } from './types';
 
 export const DEFAULT_OPTIONS: StylesOption = {
     wallpaper: {
-        background: {
-            conf: {
-                videoSource: ''
+        options: {
+            videoSource: ''
+        },
+        styles: {
+            filter: {
+                blur: '0px'
             },
-            color: '#000',
-            size: 'cover',
-            repeat: 'no-repeat',
-            position: 'center',
-            image: 'url(/img/bg/bg.jpg)',
-            blur: '0px',
             mask: {
                 alpha: 0.30
+            },
+            background: {
+                color: '#000',
+                size: 'cover',
+                repeat: 'no-repeat',
+                position: 'center',
+                image: 'url(/img/bg/bg.jpg)',
             }
-        }
+
+        },
     },
     navigation: {
-        rect: {
+        styles: {
             top: '30%',
         }
     },
     searchbar: {
-        rect: {
+        styles: {
             width: '90%',
-            round: '100px',
-            marginBottom: '18px'
+            borderRadius: '4px',
+            marginBottom: '12px',
+            backgroundColor: '#ededed'
         }
     },
     shortcut: {
-        rect: {
-            width: '90%',
+        styles: {
+            borderRadius: '4px',
+            background: {
+                color: '#ededed',
+            }
         }
     },
 };

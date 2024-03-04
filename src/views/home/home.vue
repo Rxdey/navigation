@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen relative" :style="cssOptions">
+  <div class="h-screen relative">
     <Wallpaper />
     <Navigation />
   </div>
@@ -11,14 +11,25 @@ import { useRouter, useRoute } from 'vue-router';
 import useStore from '@/store/modules/useStore';
 import { Wallpaper, Navigation } from '@/components';
 
-const store = useStore();
-const cssOptions = computed(() => store.cssOptions);
+import { options2CSSVar } from '@/store/tool';
 
-onMounted(() => {
-  // 仅打印分组展示配置方便开发时查看
-  console.log(store.cssOptionsArray)
-  console.log(cssOptions.value)
-});
+const store = useStore();
+
+/**
+ * 动态创建部分style
+ * @param val 
+ */
+const createStyle = (val: { styles: string, cssVar: string }) => {
+  document.body.setAttribute('style', val.cssVar);
+  let style = document.querySelector('#style');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'style';
+  }
+  style.textContent = val.styles;
+  document.head.appendChild(style);
+};
+watch(() => store.styles, createStyle, { immediate: true });
 </script>
 
 <style scoped></style>

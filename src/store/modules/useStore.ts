@@ -18,17 +18,7 @@ const useStore = defineStore('main', {
 
     },
     getters: {
-        // 仅打印分组展示配置方便开发时查看
-        cssOptionsArray(state) {
-            const res: any = {};
-            Object.keys(state.stylesOption).forEach(n => {
-                const o = state.stylesOption[n as keyof StylesOption];
-                if (!o) return;
-                res[n as any] = options2CSSVar(o, n).split(';').filter(e => e);
-            });
-            return res;
-        },
-        cssOptions(state) {
+        styles(state) {
             return options2CSSVar(state.stylesOption);
         }
     }
