@@ -1,5 +1,6 @@
 <template>
   <div class="h-screen relative overflow-hidden">
+    <Setting />
     <Wallpaper />
     <Navigation />
   </div>
@@ -9,7 +10,7 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useStore from '@/store/modules/useStore';
-import { Wallpaper, Navigation } from '@/components';
+import { Wallpaper, Navigation, Setting } from '@/components';
 
 import { options2CSSVar } from '@/store/tool';
 

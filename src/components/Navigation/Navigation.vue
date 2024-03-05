@@ -4,7 +4,10 @@
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" />
         <!-- 搜索引擎 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" class="engine-wrap text-xs flex-row gap-10">
-            <MenuCard class="engine" :class="activeEngine === i ? '!bg-[--engine-custom-background] !text-[--engine-custom-color]' : ''" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" :name="engine.title" small @click="onSelectEngine(i)" />
+            <MenuCard class="engine" :class="activeEngine === i ? '!bg-[--engine-custom-background] !text-[--engine-custom-color]' : ''" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
+                <span v-if="!engine.add">{{ engine.title }}</span>
+                <div v-else class="i-mingcute:add-fill"></div>
+            </MenuCard>
         </TransitionGroup>
 
         <!-- 快捷导航 -->
@@ -41,6 +44,7 @@ const engineList = [
     { title: 'Yindex', url: '' },
     { title: '搜狗', url: '' },
     { title: '360', url: '' },
+    { title: '+', add: true },
 ];
 const lockEngine = () => {
     engineClick.value = true;
@@ -72,8 +76,10 @@ const onLeave = (el: any) => {
     el.style.transitionDelay = transitiondelay;
 };
 /** 选择默认引擎 */
-const onSelectEngine = (i: number) => {
-    activeEngine.value = i;
+const onSelectEngine = (i: number, engine: typeof engineList[number]) => {
+    if (!engine.add) {
+        activeEngine.value = i;
+    }
     lockEngine()
 }
 onMounted(() => {
