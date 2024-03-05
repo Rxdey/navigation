@@ -16,7 +16,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
                 color: '#000',
                 size: 'cover',
                 repeat: 'no-repeat',
-                position: 'center',
+                position: 'left top',
                 image: 'url(/img/bg/bg.jpg)',
             }
 
@@ -43,7 +43,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     },
     engine: {
         styles: {
-            active: {
+            custom: {
                 background: 'var(--color-primary)',
                 color: 'white'
             }

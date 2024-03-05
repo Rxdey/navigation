@@ -4,7 +4,7 @@
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" />
         <!-- 搜索引擎 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" class="engine-wrap text-xs flex-row gap-10">
-            <MenuCard class="engine" :class="activeEngine === i ? '!bg-[--engine-active-background] !text-[--engine-active-color]' : ''" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" :name="engine.title" small @click="onSelectEngine(i)" />
+            <MenuCard class="engine" :class="activeEngine === i ? '!bg-[--engine-custom-background] !text-[--engine-custom-color]' : ''" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" :name="engine.title" small @click="onSelectEngine(i)" />
         </TransitionGroup>
 
         <!-- 快捷导航 -->

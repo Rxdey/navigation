@@ -38,7 +38,7 @@ type Styles = {
         alpha?: number;
     },
     /** 仅渲染csscar */
-    active?: {
+    custom?: {
         [key: string]: string
     },
     [key: string]: string | Record<string, string | number> | undefined
