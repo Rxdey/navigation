@@ -1,15 +1,14 @@
 <template>
-    <div class="navigation w-full absolute" :class="{ animateBottom: !visible }">
+    <div class="navigation w-full absolute" :class="{ animateBottom: resize }">
         <!-- 搜索框 -->
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" />
         <!-- 搜索引擎 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" class="engine-wrap text-xs flex-row gap-10">
-            <MenuCard class="engine" :class="activeEngine === i ? '!bg-[--engine-custom-background] !text-[--engine-custom-color]' : ''" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
+            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
                 <span v-if="!engine.add">{{ engine.title }}</span>
                 <div v-else class="i-mingcute:add-fill"></div>
             </MenuCard>
         </TransitionGroup>
-
         <!-- 快捷导航 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" class="shortcut-wrap text-xs grid grid-cols-4 gap-20">
             <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" />
@@ -18,12 +17,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { MenuCard, SearchBar } from '@/components';
+import useStore from '@/store/modules/useStore';
+import useTop from './useTop';
 
+const store = useStore();
 const visible = ref(true);
+
 const engineClick = ref(false);
 const activeEngine = ref(0);
+
+const { top, resize } = useTop(store.stylesOption.navigation?.styles?.custom?.top || '0', visible, 90);
+
 
 const shortcutList = [
     { title: 'bilibili', url: '' },
@@ -46,6 +52,7 @@ const engineList = [
     { title: '360', url: '' },
     { title: '+', add: true },
 ];
+/**选择搜索引擎及清空搜索内容时锁定聚焦状态 */
 const lockEngine = () => {
     engineClick.value = true;
     setTimeout(() => {
@@ -61,6 +68,7 @@ const onblur = () => {
         visible.value = true;
     }, 0);
 };
+
 const onEnter = (el: any) => {
     const index: number = el.dataset.index || 0;
     const type: string = el.dataset.type;
@@ -71,7 +79,6 @@ const onEnter = (el: any) => {
 // 离开动画是反向
 const onLeave = (el: any) => {
     const index: number = el.dataset.index || 0;
-    const type: string = el.dataset.type;
     const transitiondelay = `${(7 - index) * 0.03}s`;
     el.style.transitionDelay = transitiondelay;
 };
@@ -89,19 +96,20 @@ onMounted(() => {
 
 <style scoped>
 .navigation {
-    transition: 0.5s all;
-
-    /* &.animateBottom {
-        top: calc(100% - var(--searchbar-height) - 100px);
-    } */
+    transition: 0.3s top linear;
+    top: v-bind(top);
 }
-
 
 .shortcut-wrap,
 .engine-wrap {
     position: absolute;
     width: var(--searchbar-width);
-    top: calc(var(--searchbar-height) + var(--searchbar-active-marginBottom));
+    top: calc(var(--searchbar-height) + 20px);
     left: calc(50% - var(--searchbar-width) / 2);
+}
+
+.engine.active {
+    background-color: var(--engine-custom-background);
+    color: var(--engine-custom-color);
 }
 </style>

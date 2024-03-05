@@ -24,15 +24,16 @@ export const DEFAULT_OPTIONS: StylesOption = {
     },
     navigation: {
         styles: {
-            top: '30%',
-        }
+            custom: {
+                top: '30%',
+            }
+        },
     },
     searchbar: {
         styles: {
             width: '90%',
             height: '40px',
             borderRadius: '4px',
-            marginBottom: '12px',
             backgroundColor: '#ededed'
         }
     },
