@@ -33,9 +33,13 @@ type Styles = {
     filter?: {
         blur?: string;
     },
-    // 特殊
+    /** 遮罩 */
     mask?: {
         alpha?: number;
+    },
+    /** 仅渲染csscar */
+    active?: {
+        [key: string]: string
     },
     [key: string]: string | Record<string, string | number> | undefined
 };
@@ -47,7 +51,7 @@ type Options = {
 
 
 /** 所有模块 */
-export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut';
+export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut' | 'engine';
 
 /**
  * 配置项
@@ -69,7 +73,7 @@ export type GlobalOptions = {
 
 /** 快捷导航 */
 export type Shortcut = {
-    label: string;
+    title: string;
     url: string;
     icon?: string;
     color?: string;

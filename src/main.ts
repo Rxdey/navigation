@@ -8,6 +8,7 @@ import { setDialogDefaultOptions, setToastDefaultOptions } from 'vant';
 import localforage from 'localforage';
 import App from './App.vue';
 import 'normalize.css';
+import './styles/animate.css';
 import './styles/public.css';
 import 'virtual:uno.css';
 import 'vant/es/toast/style';

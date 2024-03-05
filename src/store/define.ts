@@ -30,6 +30,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     searchbar: {
         styles: {
             width: '90%',
+            height: '40px',
             borderRadius: '4px',
             marginBottom: '12px',
             backgroundColor: '#ededed'
@@ -37,9 +38,14 @@ export const DEFAULT_OPTIONS: StylesOption = {
     },
     shortcut: {
         styles: {
-            borderRadius: '4px',
-            background: {
-                color: '#ededed',
+
+        }
+    },
+    engine: {
+        styles: {
+            active: {
+                background: 'var(--color-primary)',
+                color: 'white'
             }
         }
     },

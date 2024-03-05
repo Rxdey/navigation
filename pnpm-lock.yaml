@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@iconify-json/mingcute':
+    specifier: ^1.1.16
+    version: 1.1.16
   '@types/node':
     specifier: ^20.11.24
     version: 20.11.24
@@ -632,9 +635,14 @@ packages:
     dev: true
     optional: true
 
+  /@iconify-json/mingcute@1.1.16:
+    resolution: {integrity: sha512-iiVYjOPFyftzvBqN3cqYVfzuqSJL2n7vduX8UsmaaIB33EM6hKNJPntxVt700jHwyux/ibHsgUo8paeHBoxpWQ==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
 
   /@iconify/utils@2.1.22:
     resolution: {integrity: sha512-6UHVzTVXmvO8uS6xFF+L/QTSpTzA/JZxtgU+KYGFyDYMEObZ1bu/b5l+zNJjHy+0leWjHI+C0pXlzGvv3oXZMA==}

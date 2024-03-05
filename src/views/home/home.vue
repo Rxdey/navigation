@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen relative">
+  <div class="h-screen relative overflow-hidden">
     <Wallpaper />
     <Navigation />
   </div>
