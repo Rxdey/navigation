@@ -27,8 +27,6 @@ import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
 import useTop from './useTop';
 
-
-
 const dely = 0.025;
 const store = useStore();
 const visible = ref(true);
@@ -36,8 +34,9 @@ const engineClick = ref(false);
 const activeEngine = ref(0);
 const navigationRef = ref<HTMLDivElement>();
 const offset = ref(90);
+const engine = computed(() => store.engine);
 const shortcutList = computed(() => store.shortcutList);
-const engineList = computed(() => [...store.engineList, { title: '', url: '' }]);
+const engineList = computed(() => [...store.engineList, { title: '', url: '', id: '' }]);
 const { top } = useTop(store.stylesOption.navigation?.styles?.custom?.top || '0', visible, offset);
 
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
@@ -56,7 +55,6 @@ const onblur = () => {
         visible.value = true;
     }, 100);
 };
-
 /** 动画逻辑 */
 const getDataSet = (el: HTMLDivElement) => {
     const type = el.dataset.type || '';
@@ -99,10 +97,13 @@ const onLeave = (e: Element) => {
 const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
     if (engine.title) {
         activeEngine.value = i;
+        store.UPDATE_ENGINE(engineList.value[i].id)
     }
     lockEngine();
 };
-onMounted(() => { });
+onMounted(() => {
+    activeEngine.value = engine.value ? engineList.value.findIndex(e => e.id === engine.value) : 0;
+});
 </script>
 
 <style scoped>

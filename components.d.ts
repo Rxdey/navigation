@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ColorPicker: typeof import('./src/components/ColorPicker/ColorPicker.vue')['default']
     Logo: typeof import('./src/components/Logo/Logo.vue')['default']
     MenuCard: typeof import('./src/components/MenuCard/MenuCard.vue')['default']
     Navigation: typeof import('./src/components/Navigation/Navigation.vue')['default']
@@ -14,6 +15,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchBar: typeof import('./src/components/SearchBar/SearchBar.vue')['default']
     Setting: typeof import('./src/components/Setting/Setting.vue')['default']
+    VanActionSheet: typeof import('vant/es')['ActionSheet']
     VanPopup: typeof import('vant/es')['Popup']
     Wallpaper: typeof import('./src/components/Wallpaper/Wallpaper.vue')['default']
   }

@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckpack/vue-color": "^1.5.0",
     "@iconify-json/mingcute": "^1.1.16",
+    "@types/tinycolor2": "^1.4.6",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
@@ -18,6 +20,7 @@
     "normalize.css": "^8.0.1",
     "pinia": "^2.1.7",
     "qs": "^6.11.2",
+    "tinycolor2": "^1.6.0",
     "vant": "^4.8.5",
     "vue": "^3.4.19",
     "vue-lazyload": "^3.0.0",

@@ -82,6 +82,7 @@ export type Shortcut = {
 };
 /** 搜索引擎 */
 export type Engine = {
+    id: string;
     title: string;
     url: string;
     icon?: string;

@@ -3,7 +3,7 @@ module.exports = {
         autoprefixer: {},
         'postcss-nesting': {},
         'postcss-mobile-forever': {
-            viewportWidth: file => file.includes("vant") ? 375 : 750,
+            viewportWidth: file => (file.includes("vant") || file.includes("@ckpack/vue-color")) ? 375 : 750,
             maxDisplayWidth: 520,
             appSelector: "#app",
             propList: ['*'],

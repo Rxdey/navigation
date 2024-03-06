@@ -10,6 +10,7 @@ type State = {
     stylesOption: StylesOption;
     shortcutList: Shortcut[],
     engineList: Engine[],
+    engine: string,
 };
 
 const useStore = defineStore('main', {
@@ -33,20 +34,26 @@ const useStore = defineStore('main', {
             { title: '源仓库', url: '' },
         ],
         engineList: [
-            { title: '必应', url: '' },
-            { title: '谷歌', url: '' },
-            { title: '百度', url: '' },
-            { title: 'Yindex', url: '' },
-            { title: '搜狗', url: '' },
-            { title: '360', url: '' },
-        ]
+            { title: '必应', url: 'https://www.bing.com/search?q=%s', id: '1' },
+            { title: '必应CN', url: 'https://cn.bing.com/search?q=%s', id: '2' },
+            { title: '谷歌', url: 'https://www.google.com/search?q=%s', id: '3' },
+            { title: '百度', url: 'https://m.baidu.com/s?word=%s', id: '4' },
+            { title: 'Yindex', url: 'https://yandex.com/search/?text=%s', id: '5' },
+            { title: '搜狗', url: 'https://www.sogou.com/sogou?query=%s', id: '6' },
+        ],
+        engine: '1'
     }),
     actions: {
-
+        UPDATE_ENGINE(engine: string) {
+            this.engine = engine;
+        }
     },
     getters: {
         styles(state) {
             return options2CSSVar(state.stylesOption);
+        },
+        defaultEngine (state) {
+            return state.engineList.find(e => e.id === state.engine) || state.engineList[0];
         }
     }
 });

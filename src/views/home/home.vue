@@ -7,12 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, provide } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useStore from '@/store/modules/useStore';
 import { Wallpaper, Navigation, Setting } from '@/container';
+import { ColorPicker } from '@/components';
 
-import { options2CSSVar } from '@/store/tool';
 
 const store = useStore();
 

@@ -7,6 +7,7 @@
 // }
 
 declare module 'md5';
+declare module 'colorpicker-v3';
 
 interface Window {
     [key: string]: any;

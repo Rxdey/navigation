@@ -4,7 +4,7 @@
             <div class="i-mingcute:search-3-line"></div>
         </div>
         <div class="flex-1">
-            <input type="search" autocomplete="off" name="search" class="outline-none border-none bg-transparent w-full" v-model="value" @focus="onfocus" @blur="onblur" ref="inputRef" />
+            <input type="search" autocomplete="off" name="search" class="outline-none border-none bg-transparent w-full" v-model="value" @focus="onfocus" @blur="onblur" ref="inputRef" @search="onEnter" />
         </div>
         <div class="" @click="onClear">
             <Transition name="scale">
@@ -16,7 +16,9 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
+import useStore from '@/store/modules/useStore';
 
+const store = useStore();
 const emit = defineEmits(['focus', 'blur', 'clear']);
 const inputRef = ref<HTMLInputElement>();
 const value = ref('');
@@ -34,6 +36,12 @@ const onClear = () => {
     }
     emit('clear');
 };
+
+const onEnter = () => {
+    if (!store.engine || !value.value) return;
+    const url = store.defaultEngine.url.replace('%s', encodeURIComponent(value.value));
+    window.location.href = url;
+}
 
 </script>
 
