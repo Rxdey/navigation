@@ -28,6 +28,7 @@ export default defineConfig({
             'flex-row': 'flex flex-row',
             'wh-full': 'w-full h-full',
             'cover-image': 'w-full h-full object-cover',
+            'contain-image': 'w-full h-full object-contain',
         },
     ],
     rules: [

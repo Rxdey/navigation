@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@iconify-json/mingcute": "^1.1.16",
-    "@types/node": "^20.11.24",
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
@@ -25,6 +24,7 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
     "@unocss/preset-rem-to-px": "^0.58.5",
     "@vant/auto-import-resolver": "^1.0.2",
     "@vant/touch-emulator": "^1.4.0",

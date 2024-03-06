@@ -39,19 +39,19 @@ type Styles = {
     },
     /** 仅渲染csscar */
     custom?: {
-        [key: string]: string
+        [key: string]: any
     },
     [key: string]: string | Record<string, string | number> | undefined
 };
-
+/** 设置项 */
 type Options = {
-    /** 视频背景，替代background */
-    videoSource?: string;
+    // videoSource?: string;
+    [key: string]: any;
 };
 
 
 /** 所有模块 */
-export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut' | 'engine';
+export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut' | 'engine' | 'logo';
 
 /**
  * 配置项
@@ -77,6 +77,15 @@ export type Shortcut = {
     url: string;
     icon?: string;
     color?: string;
-    background: string;
-    sort: number;
+    background?: string;
+    sort?: number;
+};
+/** 搜索引擎 */
+export type Engine = {
+    title: string;
+    url: string;
+    icon?: string;
+    color?: string;
+    background?: string;
+    sort?: number;
 };

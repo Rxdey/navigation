@@ -1,6 +1,7 @@
 import type { StylesOption } from './types';
 
 export const DEFAULT_OPTIONS: StylesOption = {
+    /** 壁纸 */
     wallpaper: {
         options: {
             videoSource: ''
@@ -22,6 +23,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
 
         },
     },
+    /** 导航含搜索栏 */
     navigation: {
         styles: {
             custom: {
@@ -29,19 +31,23 @@ export const DEFAULT_OPTIONS: StylesOption = {
             }
         },
     },
+    /** 搜索栏 */
     searchbar: {
         styles: {
             width: '90%',
             height: '40px',
             borderRadius: '4px',
-            backgroundColor: '#ededed'
+            backgroundColor: '#ededed',
+            marginBottom: '10px',
         }
     },
+    /** 快捷导航 */
     shortcut: {
         styles: {
 
         }
     },
+    /** 搜索引擎 */
     engine: {
         styles: {
             custom: {
@@ -50,4 +56,16 @@ export const DEFAULT_OPTIONS: StylesOption = {
             }
         }
     },
+    /** logo */
+    logo: {
+        options: {
+            image: '/img/shortcut/bilibili.png',
+            text: 'Explorer',
+            show: false,
+        },
+        styles: {
+            color: '#fff',
+            marginBottom: '16px'
+        }
+    }
 };

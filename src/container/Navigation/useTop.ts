@@ -1,6 +1,14 @@
 import { computed, ref, onMounted, Ref } from 'vue';
 
-const useTop = (customTop: string, visible: Ref<boolean>, offsetHight = 70) => {
+/**
+ * 动态计算top距离
+ * 输入法触发resize时，防止搜索框乱动
+ * @param customTop 
+ * @param visible 
+ * @param offset 
+ * @returns 
+ */
+const useTop = (customTop: string, visible: Ref<boolean>, offset: Ref<number>) => {
     const resize = ref(false);
     let innerHeight = window.innerHeight;
     // 历史top
@@ -12,10 +20,9 @@ const useTop = (customTop: string, visible: Ref<boolean>, offsetHight = 70) => {
      * 其它情况按配置展示
      */
     const top = computed(() => {
-        let res = `${parseInt(customTop) / 100 * innerHeight}px`;
-        if (resize.value && !visible.value) res = `${window.innerHeight - offsetHight}px`;
-        if (!resize.value && !visible.value) res = lastTop.value;
-        return res;
+        if (resize.value && !visible.value) return `${window.innerHeight - (offset.value + 10)}px`;
+        if (!resize.value && !visible.value) return lastTop.value;
+        return `${(parseInt(customTop) / 100 * innerHeight)}px`;
     });
     onMounted(() => {
         innerHeight = window.innerHeight;

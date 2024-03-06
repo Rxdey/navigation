@@ -10,7 +10,7 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useStore from '@/store/modules/useStore';
-import { Wallpaper, Navigation, Setting } from '@/components';
+import { Wallpaper, Navigation, Setting } from '@/container';
 
 import { options2CSSVar } from '@/store/tool';
 
