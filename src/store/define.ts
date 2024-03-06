@@ -26,9 +26,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 导航含搜索栏 */
     navigation: {
         styles: {
-            custom: {
-                top: '30%',
-            }
+            top: '30%',
         },
     },
     /** 搜索栏 */

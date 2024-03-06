@@ -1,12 +1,12 @@
 <template>
-    <div class="navigation w-full absolute" ref="navigationRef">
+    <div class="navigation w-full absolute" ref="navigationRef" :class="{ animate: resize && offset !== '0px' }">
         <!-- logo -->
         <Logo />
         <!-- 搜索框 -->
-        <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" />
+        <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" ref="searchRef" />
 
         <!-- 搜索引擎 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10">
+        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10" :class="hideEngine ? 'invisible' : 'visible'">
             <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
                 <span v-if="engine.title">{{ engine.title }}</span>
                 <div v-else class="i-mingcute:add-fill"></div>
@@ -25,19 +25,21 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { SearchBar, Logo } from '@/container';
 import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
-import useTop from './useTop';
+import useResize from './useResize';
 
 const dely = 0.025;
 const store = useStore();
-const visible = ref(true);
+const visible = ref(false);
 const engineClick = ref(false);
 const activeEngine = ref(0);
 const navigationRef = ref<HTMLDivElement>();
-const offset = ref(90);
+const searchRef = ref<InstanceType<typeof SearchBar>>();
 const engine = computed(() => store.engine);
 const shortcutList = computed(() => store.shortcutList);
 const engineList = computed(() => [...store.engineList, { title: '', url: '', id: '' }]);
-const { top } = useTop(store.stylesOption.navigation?.styles?.custom?.top || '0', visible, offset);
+const offset = ref('0px');
+const hideEngine = ref(true);
+const { resize } = useResize();
 
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
 const lockEngine = () => {
@@ -72,13 +74,12 @@ const onBeforeEnter = (e: Element) => {
     if (el.parentElement && el.parentElement.style.position !== 'absolute') el.parentElement.style.position = 'absolute';
 };
 const onAfterEnter = (e: Element) => {
-    const { index, totle, el, type } = getDataSet(e as HTMLDivElement);
+    const { index, totle, el, type, otherTotle } = getDataSet(e as HTMLDivElement);
+
     if (index === totle - 1 && el.parentElement) {
         el.parentElement.style.position = 'relative';
     }
-    if (type === 'engine' && index === engineList.value.length - 1 && navigationRef.value) {
-        offset.value = navigationRef.value.clientHeight;
-    }
+
 };
 const onEnter = (e: Element) => {
     const { index, otherTotle, el, type } = getDataSet(e as HTMLDivElement);
@@ -97,11 +98,21 @@ const onLeave = (e: Element) => {
 const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
     if (engine.title) {
         activeEngine.value = i;
-        store.UPDATE_ENGINE(engineList.value[i].id)
+        store.UPDATE_ENGINE(engineList.value[i].id);
+        if (searchRef.value) {
+            searchRef.value.focus();
+        }
     }
     lockEngine();
 };
 onMounted(() => {
+    if (navigationRef.value) {
+        offset.value = `${navigationRef.value.clientHeight + 10}px`;
+        visible.value = true;
+        setTimeout(() => {
+            hideEngine.value = false;
+        }, 300);
+    }
     activeEngine.value = engine.value ? engineList.value.findIndex(e => e.id === engine.value) : 0;
 });
 </script>
@@ -109,7 +120,11 @@ onMounted(() => {
 <style scoped>
 .navigation {
     transition: 0.3s all linear;
-    top: v-bind(top);
+    transition-delay: .2s;
+
+    &.animate {
+        top: calc(100% - v-bind(offset));
+    }
 }
 
 .shortcut-wrap,
@@ -119,13 +134,6 @@ onMounted(() => {
     left: calc(50% - var(--searchbar-width) / 2);
     font-size: 24px;
     top: 100%;
-
-    &.animate {
-        /* position: absolute; */
-        /* top: calc(var(--searchbar-height) + var(--searchbar-marginBottom)); */
-        /* top: 0; */
-        /* bottom: -100%; */
-    }
 }
 
 .engine.active {

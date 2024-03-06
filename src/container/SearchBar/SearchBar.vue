@@ -41,7 +41,12 @@ const onEnter = () => {
     if (!store.engine || !value.value) return;
     const url = store.defaultEngine.url.replace('%s', encodeURIComponent(value.value));
     window.location.href = url;
-}
+};
+defineExpose({
+    focus: () => {
+        if (inputRef.value) inputRef.value.focus();
+    }
+});
 
 </script>
 
