@@ -46,11 +46,15 @@
         <FrameComp title="修改壁纸" class="mb-40">
           <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" />
         </FrameComp>
-
       </div>
     </div>
 
     <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
+    <van-dialog v-model:show="showOnline" title="在线图片" show-cancel-button theme="round-button" :beforeClose="onOnlineConfirm">
+      <div class="mx-32 px-48 py-24">
+        <input type="text" class="border-0 py-8 outline-none w-full  border-b-1 border-primary border-solid placeholder:text-sm" placeholder="图片地址" v-model="form.online">
+      </div>
+    </van-dialog>
   </div>
 </template>
 
@@ -63,16 +67,20 @@ import { StylesOption } from '@/store/types';
 import FrameComp from '../comp/FrameComp.vue';
 import { uploadFile } from '@/utils/file';
 import { nextTick } from 'vue';
+import { showToast } from 'vant';
 
 const store = useStore();
 const wallpaperOptions = computed(() => store.stylesOption.wallpaper);
 const maskType = computed(() => store.stylesOption.wallpaper.options?.maskType || 'color');
 const windowWidth = ref(180);
+const showOnline = ref(false);
 
 const form = ref<{
   focusBlur: number;
+  online: string;
 }>({
-  focusBlur: 0
+  focusBlur: 0,
+  online: ''
 })
 
 // 直接修改state
@@ -84,9 +92,10 @@ const cropImageRef = ref<InstanceType<typeof CropImage>>();
 const onBlurChange = (value: number) => {
   store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'blur'], `${value}px`);
 };
-
+/** 本地图片上传 */
 const onSetLocalImage = (blob: Blob) => {
   store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${window.URL.createObjectURL(blob)})`);
+  store.UPDATE_STYLES(['wallpaper', 'options', 'imageType'], 1);
 };
 const uploadLocalImage = async () => {
   try {
@@ -98,6 +107,18 @@ const uploadLocalImage = async () => {
   } catch (error) {
 
   }
+};
+/** 网络图片上传 */
+const onOnlineConfirm = (action: string) => {
+  if (action === 'confirm') {
+    if (!form.value.online) {
+      showToast('请输入图片地址!')
+      return false;
+    };
+    store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${form.value.online})`);
+    store.UPDATE_STYLES(['wallpaper', 'options', 'imageType'], 2);
+  }
+  return true;
 }
 
 const onEditBackground = async (data: {
@@ -106,12 +127,19 @@ const onEditBackground = async (data: {
 }) => {
   const { value } = data;
   if (value === 'local') uploadLocalImage();
+  if (value === 'online') {
+    const img = (wallpaperOptions.value.styles?.background?.image || '').match(/url\((.*)\)/);
+    form.value.online = img ? img[1] : '';
+    showOnline.value = true;
+  }
   console.log(value);
 };
 
 onMounted(() => {
   editForm.value = wallpaperOptions.value;
   form.value.focusBlur = parseInt(wallpaperOptions.value?.styles?.custom?.blur || '0');
+  const img = (wallpaperOptions.value.styles?.background?.image || '').match(/url\((.*)\)/);
+  form.value.online = img ? img[1] : '';
   nextTick(() => {
     if (previewRef.value) windowWidth.value = previewRef.value.clientHeight / window.innerHeight * window.innerWidth;
   });

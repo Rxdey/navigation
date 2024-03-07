@@ -4,9 +4,10 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 壁纸 */
     wallpaper: {
         options: {
+            imageType: 2,
             videoSource: '',
             // radial | color
-            maskType: 'radial'
+            maskType: 'radial',
         },
         styles: {
             background: {

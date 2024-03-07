@@ -43,3 +43,14 @@
     opacity: 0;
     transform: translateY(100%) scale(1.2);
 }
+
+.fade-slider-enter-active,
+.fade-slider-leave-active {
+    transition: all .3s linear;
+}
+
+.fade-slider-enter-from,
+.fade-slider-leave-to {
+    opacity: 0;
+    transform: translateX(150%) scale(1.2);
+}

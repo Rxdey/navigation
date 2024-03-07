@@ -11,9 +11,11 @@
 
 
     <van-popup teleport="body" v-model:show="showPopup" position="bottom" round :overlay-style="{ backgroundColor: 'rgba(0,0,0,.2)' }" :close-on-click-overlay="isClose" class="h-[80%]" lazy-render>
-        <div class="h-full bg-board">
-            <Component :is="actions[active].action" @close="onClose" />
-        </div>
+        <Transition name="fade">
+            <div class="h-full bg-board" v-if="showPopup">
+                <Component :is="actions[active].action" @close="onClose" />
+            </div>
+        </Transition>
     </van-popup>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
-    <div class="flex-row flex-wrap gap-16">
-        <div class="text-center text-#666 rounded-full active:opacity-80 cursor-pointer leading-[1] px-16 py-12" :class="[{ active: data.value === value }, cliclMode ? 'bg-white border-2 border-solid border-primary text-primary' : 'bg-[#ededed]']" v-for="(data, i) in options" @click="onChange(data, i)">
+    <TransitionGroup name="fade-slider" tag="div" @enter="onEnter" @leave="onLeave" class="flex-row flex-wrap gap-16">
+        <div class="text-center text-#666 rounded-full active:opacity-80 cursor-pointer leading-[1] px-16 py-12" :class="[{ active: data.value === value }, cliclMode ? 'bg-white border-2 border-solid border-primary text-primary' : 'bg-[#ededed]']" v-for="(data, i) in options" @click="onChange(data, i)" :key="i" :data-index="i" v-show="!hide">
             {{ data.label }}
         </div>
-    </div>
+    </TransitionGroup>
 </template>
 
 <script setup lang="ts">
@@ -22,13 +22,12 @@ const props = withDefaults(defineProps<{
 }>(), {
     options: () => [],
     color: '#9b56fc',
-    
     cliclMode: false
 });
 
 const emit = defineEmits(['update:modelValue', 'click']);
-
 const value = useVModel(props, 'modelValue', emit);
+const hide = ref(true);
 
 const onChange = (data: options, i: number) => {
     if (props.cliclMode) {
@@ -37,7 +36,26 @@ const onChange = (data: options, i: number) => {
     }
     value.value = data.value;
 }
+const dely = 0.025;
 
+const onEnter = (e: Element) => {
+    const el = e as HTMLDivElement;
+    const index = parseInt(el.dataset.index || '0');
+    const transitiondelay = `${index * dely}s`;
+    el.style.transitionDelay = transitiondelay;
+};
+const onLeave = (e: Element) => {
+    const el = e as HTMLDivElement;
+    const index = parseInt(el.dataset.index || '0');
+    const transitiondelay = `${(props.options.length - index) * dely}s`;
+    el.style.transitionDelay = transitiondelay;
+    if (el.parentElement && el.parentElement.style.position !== 'absolute') el.parentElement.style.position = 'absolute';
+};
+onMounted(() => {
+    setTimeout(() => {
+        hide.value = false;
+    }, 300);
+})
 </script>
 
 <style scoped>

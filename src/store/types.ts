@@ -41,6 +41,8 @@ export type Styles = {
 };
 /** 设置项暂时any占位 */
 export type Options = {
+    /** 图片类型 1:本地 2:网络 */
+    imageType?: 1 | 2;
     videoSource?: string;
     maskType?: 'radial' | 'color';
     /**searchbar */
