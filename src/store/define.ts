@@ -4,6 +4,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 壁纸 */
     wallpaper: {
         options: {
+            imageUrl: '/img/bg/bg.jpg',
             imageType: 2,
             videoSource: '',
             // radial | color
@@ -15,12 +16,12 @@ export const DEFAULT_OPTIONS: StylesOption = {
                 size: 'cover',
                 repeat: 'no-repeat',
                 position: 'center top',
-                image: 'url(/img/bg/bg.jpg)',
+                image: 'url(/img/bg/bg.jpg)'
             },
             custom: {
                 blur: '0px',
                 focusBlur: '',
-                mask: 0.32
+                mask: 0.32,
             }
         },
     },
@@ -41,7 +42,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
             borderRadius: '4px',
             backgroundColor: 'rgba(237, 237, 237, .8)',
             marginBottom: '10px',
-            
+
             custom: {
                 shadow: 'rgba(0,0,0,.2)',
                 shadowSize: '16px'

@@ -41,8 +41,8 @@ const flatStyles = (styles: any, name: string) => {
             });
         } else {
             const key = `--${name}-${e}`;
-            result.styles += `${camelToKebab(e)}:var(${key});`;
             result.cssVar += `${key}: ${target};`
+            result.styles += `${camelToKebab(e)}:var(${key});`;
         }
     });
     result.styles += '}';

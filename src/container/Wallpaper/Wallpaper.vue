@@ -11,6 +11,8 @@ import { computed } from 'vue';
 const store = useStore();
 const isFocusBlur = computed(() => store.stylesOption.wallpaper.styles?.custom?.focusBlur);
 const maskType = computed(() => store.stylesOption.wallpaper.options?.maskType || 'color');
+// 动态创建image
+// const bgImage = computed(() => `url(${store.stylesOption.wallpaper.options?.imageUrl})`)
 </script>
 
 <style>
