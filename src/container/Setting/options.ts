@@ -3,9 +3,10 @@ export const sizeOptions = [
     { label: '适应', value: 'contain' },
 ];
 export const positionOptions = [
-    { label: '靠左', value: 'left top' },
+    { label: '默认', value: 'center top' },
+    { label: '左上', value: 'left top' },
     { label: '居中', value: 'center' },
-    { label: '靠右', value: 'right top' },
+    { label: '右上', value: 'right top' },
 ];
 export const optionsOptions = [
     { label: '径向', value: 'radial' },

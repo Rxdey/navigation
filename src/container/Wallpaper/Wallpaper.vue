@@ -1,5 +1,5 @@
 <template>
-    <div class="wallpaper absolute" :class="{ custom: !!isCustomBlur }">
+    <div class="wallpaper absolute" :class="{ custom: !!isFocusBlur }">
         <div class="wallpaper-mask h-full" :class="maskType"></div>
     </div>
 </template>
@@ -9,20 +9,21 @@ import useStore from '@/store/modules/useStore';
 import { computed } from 'vue';
 
 const store = useStore();
-const isCustomBlur = computed(() => store.stylesOption.wallpaper.styles?.custom?.blur);
+const isFocusBlur = computed(() => store.stylesOption.wallpaper.styles?.custom?.focusBlur);
 const maskType = computed(() => store.stylesOption.wallpaper.options?.maskType || 'color');
 </script>
 
 <style>
 .wallpaper {
-    top: calc(var(--wallpaper-filter-blur)*-1);
-    left: calc(var(--wallpaper-filter-blur)*-1);
-    bottom: calc(var(--wallpaper-filter-blur)*-1);
-    right: calc(var(--wallpaper-filter-blur)*-1);
+    top: calc(var(--wallpaper-custom-blur)*-1);
+    left: calc(var(--wallpaper-custom-blur)*-1);
+    bottom: calc(var(--wallpaper-custom-blur)*-1);
+    right: calc(var(--wallpaper-custom-blur)*-1);
     transition: .3s all linear;
+    filter: blur(var(--wallpaper-custom-blur));
 
     &.custom {
-        filter: blur(var(--wallpaper-custom-blur));
+        filter: blur(var(--wallpaper-custom-focusBlur));
         transform: scale(1.02);
     }
 

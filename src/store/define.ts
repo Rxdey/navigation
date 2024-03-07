@@ -9,18 +9,16 @@ export const DEFAULT_OPTIONS: StylesOption = {
             maskType: 'radial'
         },
         styles: {
-            filter: {
-                blur: '0px',
-            },
             background: {
                 color: 'transparent',
                 size: 'cover',
                 repeat: 'no-repeat',
-                position: 'left top',
+                position: 'center top',
                 image: 'url(/img/bg/bg.jpg)',
             },
             custom: {
-                blur: '',
+                blur: '0px',
+                focusBlur: '',
                 mask: 0.32
             }
         },
@@ -40,8 +38,9 @@ export const DEFAULT_OPTIONS: StylesOption = {
             width: '90%',
             height: '45px',
             borderRadius: '4px',
-            backgroundColor: '#ededed',
+            backgroundColor: 'rgba(237, 237, 237, .8)',
             marginBottom: '10px',
+            
             custom: {
                 shadow: 'rgba(0,0,0,.2)',
                 shadowSize: '16px'
@@ -52,12 +51,14 @@ export const DEFAULT_OPTIONS: StylesOption = {
     shortcut: {
         styles: {
             userSelect: 'none',
+            backgroundColor: 'rgba(237, 237, 237, .9)',
         }
     },
     /** 搜索引擎 */
     engine: {
         styles: {
             userSelect: 'none',
+            backgroundColor: 'rgba(237, 237, 237, .9)',
             custom: {
                 background: 'var(--color-primary)',
                 color: 'white'

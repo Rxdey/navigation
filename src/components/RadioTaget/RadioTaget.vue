@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-row gap-16">
+    <div class="flex-row flex-wrap gap-16">
         <div class="text-center text-#666 rounded-full active:opacity-80 cursor-pointer leading-[1] px-16 py-12" :class="[{ active: data.value === value }, cliclMode ? 'bg-white border-2 border-solid border-primary text-primary' : 'bg-[#ededed]']" v-for="(data, i) in options" @click="onChange(data, i)">
             {{ data.label }}
         </div>

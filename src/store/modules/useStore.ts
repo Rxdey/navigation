@@ -52,11 +52,16 @@ const useStore = defineStore('main', {
         engine: '1'
     }),
     actions: {
-        UPDATE_STYLES({ module, type, key, value }: UpdateStylesPayload) {
-            if (!this.stylesOption[module][type]) return;
-            const target = this.stylesOption[module][type]![key];
-            // 非空断言
-            this.stylesOption[module][type]![key] = typeof value === 'function' ? value(target) : value;
+        UPDATE_STYLES(keyArray: string[], value: string | number | boolean | null) {
+            let current: any = this.stylesOption;
+            keyArray.forEach((key, index) => {
+                if (index === keyArray.length - 1) {
+                    current[key] = value;
+                } else {
+                    if (!current[key]) current[key] = {};
+                    current = current[key];
+                }
+            });
         },
         UPDATE_ENGINE(engine: string) {
             this.engine = engine;

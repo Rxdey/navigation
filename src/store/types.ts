@@ -30,9 +30,9 @@ export type Styles = {
     color?: string;
     borderRadius?: string;
     background?: Background;
-    filter?: {
-        blur?: string;
-    },
+    // filter?: {
+    //     blur?: string;
+    // },
     /** 仅渲染csscar */
     custom?: {
         [key: string]: any
@@ -41,7 +41,14 @@ export type Styles = {
 };
 /** 设置项暂时any占位 */
 export type Options = {
-    // videoSource?: string;
+    videoSource?: string;
+    maskType?: 'radial' | 'color';
+    /**searchbar */
+    blurOnFocus?: boolean;
+    /**logo */
+    image?: string,
+    text?: string,
+    show?: boolean,
     [key: string]: any;
 };
 

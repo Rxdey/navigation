@@ -1,0 +1,8 @@
+:root:root {
+    --van-primary-color: var(--color-primary);
+    --van-success-color: var(--color-success);
+    --van-danger-color: var(--color-danger);
+    --van-warning-color: var(--color-warning);
+    --van-divider-margin: 20px 0;
+    --van-slider-active-background: var(--color-primary);
+}

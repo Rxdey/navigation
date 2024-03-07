@@ -10,9 +10,12 @@
             <div class="flex-1 min-h-0">
                 <img :src="blobUrl" ref="imgRef" @load="initCropper">
             </div>
-            <!-- <div class="p-32 bg-black-50">
-                    <van-button type="primary" block round @click="onSave">保存</van-button>
-                </div> -->
+            <div class="p-32 bg-board">
+                <div class="flex-center">
+                    <div class="mr-24">锁定比例</div>
+                    <van-switch v-model="lock" size="22px" style="--van-switch-width:2.2em" @change="onLock"/>
+                </div>
+            </div>
         </div>
         <!-- </div> -->
     </van-popup>
@@ -30,6 +33,7 @@ const emit = defineEmits(['confirm']);
 const showPopup = ref(false);
 const imgRef = ref<HTMLImageElement | null>(null);
 const blobUrl = ref('');
+const lock = ref(true);
 
 let cropper: Cropper | null = null;
 
@@ -37,12 +41,21 @@ const initCropper = async () => {
     if (!imgRef.value) return;
     cropper = new Cropper(imgRef.value, {
         viewMode: 1,
-        aspectRatio: 9 / 16,
+        aspectRatio: window.innerWidth / window.innerHeight,
         dragMode: 'none',
         // guides: false,
         background: false,
-        movable: true
+        movable: true,
+        autoCropArea: 1
     });
+}
+const onLock = (val: boolean) => {
+    if (!cropper) return;
+    if (val) {
+        cropper.setAspectRatio(window.innerWidth / window.innerHeight)
+    } else {
+        cropper.setAspectRatio(NaN);
+    }
 }
 
 const onSave = () => {
