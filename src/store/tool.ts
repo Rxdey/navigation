@@ -32,7 +32,7 @@ const flatStyles = (styles: any, name: string) => {
                 const key = name ? `--${name}-${e}-${f}` : `--${e}-${f}`;
                 result.cssVar += `${key}: ${target[f]};`;
                 // 特殊处理
-                if (['mask', 'custom'].includes(e)) return;
+                if (['custom'].includes(e)) return;
                 if (['filter'].includes(e)) {
                     result.styles += `filter:${f}(var(${key}));`;
                     return;

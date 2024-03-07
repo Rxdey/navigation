@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
-import type { StylesOption, Shortcut, Engine } from '../types';
+import type { StylesOption, Shortcut, Engine, Keys, Options, Styles } from '../types';
 import { DEFAULT_OPTIONS } from '../define';
 import { options2CSSVar } from '@/store/tool';
+import { ValueOption } from '@/types';
 
 
 type State = {
@@ -11,6 +12,13 @@ type State = {
     shortcutList: Shortcut[],
     engineList: Engine[],
     engine: string,
+};
+
+type UpdateStylesPayload = {
+    module: Keys;
+    type: 'styles' | 'options';
+    key: keyof Options | keyof Styles;
+    value: ValueOption | (<T>(e: T) => T);
 };
 
 const useStore = defineStore('main', {
@@ -44,15 +52,21 @@ const useStore = defineStore('main', {
         engine: '1'
     }),
     actions: {
+        UPDATE_STYLES({ module, type, key, value }: UpdateStylesPayload) {
+            if (!this.stylesOption[module][type]) return;
+            const target = this.stylesOption[module][type]![key];
+            // 非空断言
+            this.stylesOption[module][type]![key] = typeof value === 'function' ? value(target) : value;
+        },
         UPDATE_ENGINE(engine: string) {
             this.engine = engine;
-        }
+        },
     },
     getters: {
         styles(state) {
             return options2CSSVar(state.stylesOption);
         },
-        defaultEngine (state) {
+        defaultEngine(state) {
             return state.engineList.find(e => e.id === state.engine) || state.engineList[0];
         }
     }

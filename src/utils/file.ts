@@ -1,5 +1,25 @@
 // import Compressor from 'compressorjs';
 
+export const uploadFile = (): Promise<File> => {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.hidden = true;
+    document.body.appendChild(input);
+    input.click();
+    return new Promise((resolve, reject) => {
+        input.onchange = (e: Event) => {
+            const file = (e.target as HTMLInputElement).files![0];
+            if (!/^image/.test(file.type)) {
+                reject(null);
+            }
+            resolve(file);
+            input.onchange = null;
+            document.body.removeChild(input);
+        }
+    })
+}
+
 /** base64转换为blob */
 export const dataURLtoBlob = (dataurl: string) => {
     const arr: any[] = dataurl.split(',');

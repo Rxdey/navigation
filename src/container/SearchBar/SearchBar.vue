@@ -22,12 +22,35 @@ const store = useStore();
 const emit = defineEmits(['focus', 'blur', 'clear']);
 const inputRef = ref<HTMLInputElement>();
 const value = ref('');
+const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnFocus)
 
 const onfocus = () => {
     emit('focus', inputRef.value);
+    if (blurOnFocus.value) {
+        store.UPDATE_STYLES({
+            module: 'wallpaper',
+            type: 'styles',
+            key: 'custom',
+            value: (val) => ({
+                ...val,
+                blur: '3px'
+            })
+        });
+    }
 };
 const onblur = () => {
     emit('blur', inputRef.value);
+    if (blurOnFocus.value) {
+        store.UPDATE_STYLES({
+            module: 'wallpaper',
+            type: 'styles',
+            key: 'custom',
+            value: (val) => ({
+                ...val,
+                blur: ''
+            })
+        });
+    }
 };
 const onClear = () => {
     value.value = '';
@@ -52,8 +75,8 @@ defineExpose({
 
 <style scoped>
 .searchbar {
+    box-shadow: 0 0 var(--searchbar-custom-shadowSize) 0 var(--searchbar-custom-shadow);
     left: calc(50% - var(--searchbar-width) / 2);
-
     input::-webkit-search-cancel-button {
         display: none;
     }

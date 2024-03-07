@@ -5,3 +5,10 @@
     --color-warning: #ffb202;
     --color-danger: #ff4c51;
 }
+
+:root:root {
+    --van-primary-color: var(--color-primary);
+    --van-success-color: var(--color-success);
+    --van-danger-color: var(--color-danger);
+    --van-warning-color: var(--color-warning);
+}

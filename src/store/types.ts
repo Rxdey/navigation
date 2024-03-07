@@ -1,4 +1,4 @@
-type Background = {
+export type Background = {
     /** 背景颜色 */
     color?: string;
     /** background-size属性 */
@@ -11,7 +11,7 @@ type Background = {
     image?: string;
 };
 /** 基础样式 */
-type Styles = {
+export type Styles = {
     width?: string;
     height?: string;
     top?: string;
@@ -33,18 +33,14 @@ type Styles = {
     filter?: {
         blur?: string;
     },
-    /** 遮罩 */
-    mask?: {
-        alpha?: number;
-    },
     /** 仅渲染csscar */
     custom?: {
         [key: string]: any
     },
     [key: string]: string | Record<string, string | number> | undefined
 };
-/** 设置项 */
-type Options = {
+/** 设置项暂时any占位 */
+export type Options = {
     // videoSource?: string;
     [key: string]: any;
 };
@@ -58,7 +54,7 @@ export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut' | 'engi
  * 解析为cssVar --[key]-[name]: [value];
  */
 export type StylesOption = {
-    [key in Keys]?: {
+    [key in Keys]: {
         options?: Options;
         styles?: Styles;
     }

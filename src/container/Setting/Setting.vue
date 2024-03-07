@@ -3,11 +3,15 @@
         <div class="i-mingcute:settings-3-line" @click="showAction = true"></div>
     </div>
 
-    <van-action-sheet v-model:show="showAction" :actions="actions" cancel-text="取消" title="设置" teleport="body" close-on-click-action @select="onSelect" />
+    <van-action-sheet v-model:show="showAction" :actions="actions" cancel-text="取消" title="设置" teleport="body" close-on-click-action @select="onSelect">
+        <template #cancel>
+            <span class="text-danger">取消</span>
+        </template>
+    </van-action-sheet>
 
 
-    <van-popup teleport="body" v-model:show="showPopup" position="right" :overlay-style="{ backgroundColor: 'rgba(0,0,0,.2)' }" :close-on-click-overlay="isClose" class="h-full w-2/3" lazy-render>
-        <div class="px-32 py-24">
+    <van-popup teleport="body" v-model:show="showPopup" position="bottom" round :overlay-style="{ backgroundColor: 'rgba(0,0,0,.2)' }" :close-on-click-overlay="isClose" class="h-[80%]" lazy-render>
+        <div class="px-20 py-28 h-full bg-board">
             <Component :is="actions[active].action" @close="onClose" />
         </div>
     </van-popup>

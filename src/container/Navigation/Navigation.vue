@@ -1,10 +1,11 @@
 <template>
-    <div class="navigation w-full absolute" ref="navigationRef" :class="{ animate: resize && offset !== '0px' }">
+    <div class="navigation w-full absolute" ref="navigationRef" :class="{
+        animate: resize && offset && !visible
+    }">
         <!-- logo -->
         <Logo />
         <!-- 搜索框 -->
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" ref="searchRef" />
-
         <!-- 搜索引擎 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10" :class="hideEngine ? 'invisible' : 'visible'">
             <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
@@ -37,9 +38,10 @@ const searchRef = ref<InstanceType<typeof SearchBar>>();
 const engine = computed(() => store.engine);
 const shortcutList = computed(() => store.shortcutList);
 const engineList = computed(() => [...store.engineList, { title: '', url: '', id: '' }]);
-const offset = ref('0px');
+const offset = ref(0);
 const hideEngine = ref(true);
-const { resize } = useResize();
+const { resize, windowHeight } = useResize();
+const animateTop = computed(() => `${windowHeight.value - offset.value - 10}px`);
 
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
 const lockEngine = () => {
@@ -93,7 +95,6 @@ const onLeave = (e: Element) => {
     el.style.transitionDelay = transitiondelay;
     if (el.parentElement && el.parentElement.style.position !== 'absolute') el.parentElement.style.position = 'absolute';
 };
-
 /** 选择默认引擎 */
 const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
     if (engine.title) {
@@ -107,7 +108,7 @@ const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
 };
 onMounted(() => {
     if (navigationRef.value) {
-        offset.value = `${navigationRef.value.clientHeight + 10}px`;
+        offset.value = navigationRef.value.clientHeight;
         visible.value = true;
         setTimeout(() => {
             hideEngine.value = false;
@@ -123,7 +124,8 @@ onMounted(() => {
     transition-delay: .2s;
 
     &.animate {
-        top: calc(100% - v-bind(offset));
+        top: v-bind(animateTop);
+        /* top: calc(100% - v-bind(offset)); */
     }
 }
 

@@ -29,6 +29,7 @@ export default defineConfig({
             'wh-full': 'w-full h-full',
             'cover-image': 'w-full h-full object-cover',
             'contain-image': 'w-full h-full object-contain',
+            'slider-button': 'wh-40 bg-white border-5 border-solid border-primary rounded-full'
         },
     ],
     rules: [
@@ -38,6 +39,7 @@ export default defineConfig({
         [/^bg-black-(\d+)$/, ([, d]) => ({ "background-color": `rgb(0 0 0 / ${d}%)` })],
         [/^l-s-(\d+)$/, ([, d]) => ({ "letter-spacing": `${d}px` })],
         [/^wh-(\d+)$/, ([, d]) => ({ 'width': `${d}px`, 'height': `${d}px`, })],
+        [/^pixel-(\d+)$/, ([, d]) => ({'background-color': 'rgb(221, 221, 221)', 'background-image': 'linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px), linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px)', 'background-position': `0px 0px, ${parseInt(d)/2}px ${parseInt(d)/2}px`, 'background-size': `${d}px ${d}px`})]
     ],
     theme: {
         colors: {
@@ -46,6 +48,7 @@ export default defineConfig({
             'info': 'var(--color-info)',
             'warning': 'var(--color-warning)',
             'danger': 'var(--color-danger)',
+            'board': '#f5f5f5',
         },
         fontSize: {
             xs: '24px',
