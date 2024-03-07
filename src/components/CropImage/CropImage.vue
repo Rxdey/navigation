@@ -1,16 +1,20 @@
 <template>
-    <van-popup v-model:show="showPopup" position="bottom" :style="{ height: '100%' }" closeable>
-        <div class="pixel-40 h-full" v-if="showPopup">
-            <div class="flex-col wh-full absolute top-0 left-0">
-                <van-nav-bar title="编辑头像" left-text="返回" left-arrow @click-left="showPopup = false" />
-                <div class="flex-1 min-h-0">
-                    <img :src="blobUrl" ref="imgRef" @load="initCropper">
-                </div>
-                <div class="p-32 bg-black-50">
-                    <van-button type="primary" block round @click="onSave">保存</van-button>
-                </div>
+    <van-popup v-model:show="showPopup" position="bottom" :style="{ height: '100%' }">
+        <!-- <div class="pixel-40 h-full" > -->
+        <div class="pixel-40 h-full flex-col" v-if="showPopup">
+            <van-nav-bar left-arrow right-text="完成" @click-left="showPopup = false" @click-right="onSave">
+                <template #title>
+                    <span class="font-normal">编辑图片</span>
+                </template>
+            </van-nav-bar>
+            <div class="flex-1 min-h-0">
+                <img :src="blobUrl" ref="imgRef" @load="initCropper">
             </div>
+            <!-- <div class="p-32 bg-black-50">
+                    <van-button type="primary" block round @click="onSave">保存</van-button>
+                </div> -->
         </div>
+        <!-- </div> -->
     </van-popup>
 </template>
 
@@ -19,8 +23,9 @@ import { showImagePreview, showToast } from 'vant';
 import { ref, onMounted } from 'vue';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
+import { dataURLtoBlob } from '@/utils/file';
 
-const emit = defineEmits(['change']);
+const emit = defineEmits(['confirm']);
 
 const showPopup = ref(false);
 const imgRef = ref<HTMLImageElement | null>(null);
@@ -42,7 +47,9 @@ const initCropper = async () => {
 
 const onSave = () => {
     if (!cropper) return;
-    // cropper.getCroppedCanvas()
+    const base64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', .9);
+    emit('confirm', dataURLtoBlob(base64));
+    showPopup.value = false;
 }
 
 defineExpose({

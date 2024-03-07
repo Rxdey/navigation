@@ -45,7 +45,7 @@
       </FrameComp>
     </div>
 
-    <CropImage ref="cropImageRef" />
+    <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
   </div>
 </template>
 
@@ -81,6 +81,15 @@ const onBlurChange = (value: number) => {
   })
 };
 
+const onSetLocalImage = (blob: Blob) => {
+  store.UPDATE_STYLES({
+    module: 'wallpaper',
+    type: 'styles',
+    key: 'background',
+    // value: val => ({ ...val, image: `url(${window.URL.createObjectURL(blob)})` })
+    value: val => ({ ...val, image: `url(${window.URL.createObjectURL(blob)})` })
+  })
+};
 const uploadLocalImage = async () => {
   try {
     const res = await uploadFile();
