@@ -5,7 +5,7 @@ export const uploadFile = (): Promise<File> => {
     input.type = 'file';
     input.accept = 'image/*';
     input.hidden = true;
-    document.body.appendChild(input);
+    // document.body.appendChild(input);
     input.click();
     return new Promise((resolve, reject) => {
         input.onchange = (e: Event) => {
@@ -15,7 +15,7 @@ export const uploadFile = (): Promise<File> => {
             }
             resolve(file);
             input.onchange = null;
-            document.body.removeChild(input);
+            // document.body.removeChild(input);
         }
     })
 }

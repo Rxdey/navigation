@@ -1,52 +1,38 @@
 <template>
-  <div class="EditWallpaper" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background">
-    <CustomTitle class="text-center bg-white pb-24 pt-32">壁纸设置</CustomTitle>
-    <div class="px-24">
-      <div class="bg-white rounded-12 px-32 py-24">
-        <div class="flex-row mb-32">
-          <!-- 预览模块 -->
-          <div class="w-30%">
-            <div class="rounded-8 h-360 overflow-hidden pixel-40 relative mx-a" :style="{ width: `${windowWidth}px` }" ref="previewRef">
-              <div class="wallpaper absolute">
-                <div class="wallpaper-mask h-full" :class="maskType"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-1 ml-16">
-            <FrameComp title="填充模式">
-              <RadioTaget v-model="editForm.styles.background.size" :options="OPTIONS.sizeOptions" />
-            </FrameComp>
-            <FrameComp title="重复">
-              <van-switch v-model="editForm.styles.background.repeat" size="18px" active-color="#9b56fc" style="--van-switch-width:2.3em" active-value="repeat" inactive-value="no-repeat" />
-            </FrameComp>
-            <FrameComp title="对齐方式">
-              <RadioTaget v-model="editForm.styles.background.position" :options="OPTIONS.positionOptions" />
-            </FrameComp>
-          </div>
+  <div class="EditWallpaper mx-16" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background" @click.stop>
+    <div class="bg-white rounded-24 p-32">
+      <FrameComp title="填充模式">
+        <RadioTaget v-model="editForm.styles.background.size" :options="OPTIONS.sizeOptions" />
+      </FrameComp>
+      <FrameComp title="重复">
+        <van-switch v-model="editForm.styles.background.repeat" size="18px" active-color="#9b56fc" style="--van-switch-width:2.3em" active-value="repeat" inactive-value="no-repeat" />
+      </FrameComp>
+      <FrameComp title="对齐方式">
+        <RadioTaget v-model="editForm.styles.background.position" :options="OPTIONS.positionOptions" />
+      </FrameComp>
+      <FrameComp title="遮罩类型">
+        <RadioTaget v-model="editForm.options.maskType" :options="OPTIONS.optionsOptions" />
+      </FrameComp>
+      <FrameComp :title="`遮罩浓度(${editForm.styles.custom.mask})`" class="mb-40">
+        <van-slider v-model="editForm.styles.custom.mask" :min="0" :max="1" :step="0.01" class="mt-32">
+          <template #button>
+            <div class="slider-button"></div>
+          </template>
+        </van-slider>
+      </FrameComp>
+      <FrameComp title="背景模糊" class="mb-40">
+        <van-slider v-model="form.focusBlur" :min="0" :max="10" :step="1" class="mt-32">
+          <template #button>
+            <div class="slider-button"></div>
+          </template>
+        </van-slider>
+      </FrameComp>
+      <FrameComp title="修改壁纸" class="mb-0">
+        <div>
+          <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" class="mb-32" />
+          <AnimateInput />
         </div>
-
-        <FrameComp title="遮罩类型">
-          <RadioTaget v-model="editForm.options.maskType" :options="OPTIONS.optionsOptions" />
-        </FrameComp>
-        <FrameComp :title="`遮罩浓度(${editForm.styles.custom.mask})`" class="mb-40">
-          <van-slider v-model="editForm.styles.custom.mask" :min="0" :max="1" :step="0.01" class="mt-32">
-            <template #button>
-              <div class="slider-button"></div>
-            </template>
-          </van-slider>
-        </FrameComp>
-        <FrameComp title="背景模糊" class="mb-40">
-          <van-slider v-model="form.focusBlur" :min="0" :max="10" :step="1" @change="onBlurChange" class="mt-32">
-            <template #button>
-              <div class="slider-button"></div>
-            </template>
-          </van-slider>
-        </FrameComp>
-        <FrameComp title="修改壁纸" class="mb-40">
-          <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" />
-        </FrameComp>
-      </div>
+      </FrameComp>
     </div>
 
     <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
@@ -60,7 +46,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-import { CustomTitle, RadioTaget, CropImage } from '@/components';
+import { CustomTitle, RadioTaget, CropImage, AnimateInput } from '@/components';
 import * as OPTIONS from '../options';
 import useStore from '@/store/modules/useStore';
 import { StylesOption } from '@/store/types';
@@ -83,20 +69,21 @@ const form = ref<{
   online: ''
 })
 
-// 直接修改state
+// 直接通过引用类型修改state
 const editForm = ref<StylesOption['wallpaper']>({});
 
 const previewRef = ref<HTMLDivElement>();
 const cropImageRef = ref<InstanceType<typeof CropImage>>();
-
+/** 模糊度修改 */
 const onBlurChange = (value: number) => {
   store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'blur'], `${value}px`);
 };
-/** 本地图片上传 */
+/** 更新图片地址及类型 */
 const onSetLocalImage = (blob: Blob) => {
   store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${window.URL.createObjectURL(blob)})`);
   store.UPDATE_STYLES(['wallpaper', 'options', 'imageType'], 1);
 };
+/** 本地图片上传 */
 const uploadLocalImage = async () => {
   try {
     const res = await uploadFile();
@@ -105,10 +92,10 @@ const uploadLocalImage = async () => {
       cropImageRef.value.onCrop(blobUrl);
     }
   } catch (error) {
-
+    showToast('图片上传失败,可以重试一下')
   }
 };
-/** 网络图片上传 */
+/** 提交网络图片 */
 const onOnlineConfirm = (action: string) => {
   if (action === 'confirm') {
     if (!form.value.online) {
@@ -120,7 +107,7 @@ const onOnlineConfirm = (action: string) => {
   }
   return true;
 }
-
+/** 壁纸修改 */
 const onEditBackground = async (data: {
   label: string;
   value: string;
@@ -144,6 +131,15 @@ onMounted(() => {
     if (previewRef.value) windowWidth.value = previewRef.value.clientHeight / window.innerHeight * window.innerWidth;
   });
 });
+
+watch(() => form.value.focusBlur, val => {
+  store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'blur'], `${val}px`);
+})
 </script>
 
-<style scoped></style>
+<style scoped>
+.EditWallpaper {
+  transition: all .3s;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, .3);
+}
+</style>

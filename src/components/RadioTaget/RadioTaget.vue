@@ -1,6 +1,6 @@
 <template>
-    <TransitionGroup name="fade-slider" tag="div" @enter="onEnter" @leave="onLeave" class="flex-row flex-wrap gap-16">
-        <div class="text-center text-#666 rounded-full active:opacity-80 cursor-pointer leading-[1] px-16 py-12" :class="[{ active: data.value === value }, cliclMode ? 'bg-white border-2 border-solid border-primary text-primary' : 'bg-[#ededed]']" v-for="(data, i) in options" @click="onChange(data, i)" :key="i" :data-index="i" v-show="!hide">
+    <TransitionGroup name="swing-flip" tag="div" class="flex-row flex-wrap gap-16">
+        <div class="text-center text-#666 rounded-full active:opacity-80 cursor-pointer leading-[1] px-16 py-12" :class="[{ active: data.value === value }, cliclMode ? 'bg-white border-2 border-solid border-primary text-primary' : 'bg-[#ededed]']" v-for="(data, i) in options" @click.stop="onChange(data, i)" :key="i" :data-index="i" v-show="!hide">
             {{ data.label }}
         </div>
     </TransitionGroup>
@@ -41,20 +41,21 @@ const dely = 0.025;
 const onEnter = (e: Element) => {
     const el = e as HTMLDivElement;
     const index = parseInt(el.dataset.index || '0');
-    const transitiondelay = `${index * dely}s`;
-    el.style.transitionDelay = transitiondelay;
+    const animationDelay = `${index * dely}s`;
+    el.style.animationDelay = animationDelay;
 };
 const onLeave = (e: Element) => {
     const el = e as HTMLDivElement;
     const index = parseInt(el.dataset.index || '0');
-    const transitiondelay = `${(props.options.length - index) * dely}s`;
-    el.style.transitionDelay = transitiondelay;
-    if (el.parentElement && el.parentElement.style.position !== 'absolute') el.parentElement.style.position = 'absolute';
+    const animationDelay = `${(props.options.length - index) * dely}s`;
+    el.style.animationDelay = animationDelay;
 };
+const onClearDely = (e: Event) => {
+    (e.target as HTMLDivElement).style.animationDelay = '0s'
+};
+
 onMounted(() => {
-    setTimeout(() => {
-        hide.value = false;
-    }, 300);
+    hide.value = false;
 })
 </script>
 

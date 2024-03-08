@@ -7,25 +7,21 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ActionSheet: typeof import('./src/components/ActionSheet/ActionSheet.vue')['default']
+    AnimateInput: typeof import('./src/components/AnimateInput/AnimateInput.vue')['default']
     ColorPicker: typeof import('./src/components/ColorPicker/ColorPicker.vue')['default']
     CropImage: typeof import('./src/components/CropImage/CropImage.vue')['default']
     CustomTitle: typeof import('./src/components/CustomTitle/CustomTitle.vue')['default']
-    Logo: typeof import('./src/components/Logo/Logo.vue')['default']
     MenuCard: typeof import('./src/components/MenuCard/MenuCard.vue')['default']
-    Navigation: typeof import('./src/components/Navigation/Navigation.vue')['default']
     RadioTaget: typeof import('./src/components/RadioTaget/RadioTaget.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SearchBar: typeof import('./src/components/SearchBar/SearchBar.vue')['default']
-    Setting: typeof import('./src/components/Setting/Setting.vue')['default']
     VanActionSheet: typeof import('vant/es')['ActionSheet']
-    VanButton: typeof import('vant/es')['Button']
     VanDialog: typeof import('vant/es')['Dialog']
-    VanDivider: typeof import('vant/es')['Divider']
     VanNavBar: typeof import('vant/es')['NavBar']
+    VanOverlay: typeof import('vant/es')['Overlay']
     VanPopup: typeof import('vant/es')['Popup']
     VanSlider: typeof import('vant/es')['Slider']
     VanSwitch: typeof import('vant/es')['Switch']
-    Wallpaper: typeof import('./src/components/Wallpaper/Wallpaper.vue')['default']
   }
 }

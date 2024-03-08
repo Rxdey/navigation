@@ -54,3 +54,133 @@
     opacity: 0;
     transform: translateX(150%) scale(1.2);
 }
+
+
+.bounce-move-enter-active,
+.bounce-move-leave-active {
+    animation: bounce_move_3 .8s ease-out;
+}
+
+.bounce-move-enter-from,
+.bounce-move-leave-to {
+    animation: bounce_move_3 .8s ease-out;
+}
+
+@keyframes bounce_move_3 {
+    0% {
+        opacity: 0;
+        transform: translateY(440px);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+
+    60% {
+        transform: translateY(0);
+    }
+
+    70% {
+        transform: translateY(2px);
+    }
+
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 果冻 */
+.jelly-enter-active,
+.jelly-leave-active {
+    animation: anima_jelly 2s infinite;
+}
+
+.jelly-enter-from,
+.jelly-leave-to {
+    animation: anima_jelly 2s infinite;
+}
+
+@keyframes anima_jelly {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    15% {
+        transform: scale3d(1.25, .75, 1);
+    }
+
+    20% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    25% {
+        transform: scale3d(1.15, .85, 1);
+    }
+
+    32.5% {
+        transform: scale3d(.95, 1.05, 1);
+    }
+
+    37.5% {
+        transform: scale3d(1.05, .95, 1);
+    }
+
+    50%,
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+/* 翻转 */
+.swing-flip-enter-active,
+.swing-flip-leave-active {
+    animation: swing_flip_2 1s;
+}
+
+.swing-flip-enter-from,
+.swing-flip-leave-to {
+    animation: swing_flip_2 1s;
+}
+
+@keyframes swing_flip_2 {
+    0% {
+        -webkit-transform: perspective(40px) rotate3d(1, 0, 0, 90deg);
+        -webkit-transition-timing-function: ease-in;
+        opacity: 0
+    }
+
+    40% {
+        -webkit-transform: perspective(40px) rotate3d(1, 0, 0, -20deg);
+        -webkit-transition-timing-function: ease-in;
+    }
+
+    60% {
+        -webkit-transform: perspective(40px) rotate3d(1, 0, 0, 10deg);
+        opacity: 1
+    }
+
+    80% {
+        -webkit-transform: perspective(40px) rotate3d(1, 0, 0, -5deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(40px);
+    }
+}
+
+
+.flip-inout-enter-active,
+.flip-inout-leave-active {
+    transition: all 0.5s ease;
+}
+
+.flip-inout-enter-from,
+.flip-inout-leave-to {
+    transform: translate3d(100%, 0, -300px) rotateY(-45deg);
+}
