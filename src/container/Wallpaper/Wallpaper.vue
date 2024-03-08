@@ -9,8 +9,11 @@ import useStore from '@/store/modules/useStore';
 import { computed } from 'vue';
 
 const store = useStore();
-const isFocusBlur = computed(() => store.stylesOption.wallpaper.styles?.custom?.focusBlur);
-const maskType = computed(() => store.stylesOption.wallpaper.options?.maskType || 'color');
+const wallpaper = computed(() => store.stylesOption.wallpaper);
+
+const isFocusBlur = computed(() => wallpaper.value.styles?.custom?.focusBlur);
+const maskType = computed(() => wallpaper.value.options?.maskType || 'color');
+
 // 动态创建image
 // const bgImage = computed(() => `url(${store.stylesOption.wallpaper.options?.imageUrl})`)
 </script>

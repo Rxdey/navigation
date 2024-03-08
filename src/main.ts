@@ -18,7 +18,10 @@ import 'vant/es/image-preview/style';
 
 
 localforage.config({
-    name: 'home_page'
+    driver: localforage.INDEXEDDB, // 选择存储引擎，如IndexedDB
+    name: 'navigation', // 数据库名称
+    version: 1, // 数据库版本号
+    storeName: 'main', // 存储对象的名称
 });
 
 dayjs.locale('zh-cn'); // 使用本地化语言
