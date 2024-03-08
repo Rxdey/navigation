@@ -27,7 +27,7 @@ setDialogDefaultOptions({
     theme: 'round-button',
 });
 setToastDefaultOptions('loading', { forbidClick: true });
-setToastDefaultOptions('text', { forbidClick: false, position: 'bottom' });
+setToastDefaultOptions('text', { forbidClick: false, position: 'top' });
 
 const app = createApp(App);
 app.use(router);

@@ -6,6 +6,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
         options: {
             imageUrl: '/img/bg/bg.jpg',
             imageType: 2,
+            imageFile: null,
             videoSource: '',
             // radial | color
             maskType: 'radial',
@@ -70,9 +71,9 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** logo */
     logo: {
         options: {
-            image: '/img/shortcut/bilibili.png',
-            text: 'Explorer',
-            show: false,
+            // image: '/img/shortcut/bilibili.png',
+            // text: 'Explorer',
+            // show: false,
         },
         styles: {
             color: '#fff',

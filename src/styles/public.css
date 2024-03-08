@@ -31,3 +31,7 @@ input,
 input::placeholder {
     font-family: system-ui, -apple-system;
 }
+
+.alltransition {
+    transition: all .3s;
+}

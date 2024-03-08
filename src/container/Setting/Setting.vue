@@ -9,17 +9,9 @@
         </template>
     </ActionSheet>
 
-
-    <!-- <van-popup teleport="body" v-model:show="showPopup" position="bottom" round :overlay-style="{ backgroundColor: 'rgba(0,0,0,.2)' }" :close-on-click-overlay="isClose" class="h-[80%]" lazy-render>
-        <Transition name="fade">
-            <div class="h-full bg-board" v-if="showPopup">
-                <Component :is="actions[active].action" @close="onClose" />
-            </div>
-        </Transition>
-    </van-popup> -->
     <Teleport to="#home">
         <Transition name="flip-inout">
-            <div class="absolute top-10% right-0 z-10 w-80% h-80% flex-col justify-center" v-if="showPopup">
+            <div class="editor absolute top-50%  right-0 z-10 w-80%" v-if="showPopup">
                 <Component :is="actions[active].action" @close="onClose" />
             </div>
         </Transition>
@@ -57,11 +49,21 @@ const onClose = () => {
     showPopup.value = false;
 };
 onMounted(() => {
-    document.body.addEventListener('click', () => {
-        emit('animate', false);
+    // document.body.addEventListener('click', () => {
+    //     emit('animate', false);
+    //     showPopup.value = false;
+    // })
+});
+
+defineExpose({
+    close() {
         showPopup.value = false;
-    })
+    }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.editor {
+    transform: translate3d(0, -50%, 0) rotateY(0);
+}
+</style>

@@ -1,9 +1,9 @@
 <template>
   <div class="home h-screen relative overflow-hidden" id="home">
-    <div class="glass wh-full absolute z-1"></div>
+    <div class="glass wh-full absolute z-1" @click="hideMenu"></div>
     <div class="drawers relative h-full overflow-hidden z-2" :class="{ animate: showMenu }" @click.stop>
       
-      <Setting @animate="onAnimate" v-if="showSetting" />
+      <Setting @animate="onAnimate" v-if="showSetting" ref="setRef"/>
       <Wallpaper />
       <Navigation />
     </div>
@@ -20,9 +20,16 @@ import { ColorPicker } from '@/components';
 const store = useStore();
 const showMenu = ref(false);
 const showSetting = ref(false);
+const setRef = ref<InstanceType<typeof Setting>>();
 
 const onAnimate = (val: boolean) => {
   showMenu.value = !showMenu.value;
+}
+const hideMenu = () => {
+  showMenu.value = false;
+  if (setRef.value) {
+    setRef.value.close();
+  }
 }
 /**
  * 动态创建部分style

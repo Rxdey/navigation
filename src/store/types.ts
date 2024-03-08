@@ -41,16 +41,19 @@ export type Styles = {
 };
 /** 设置项暂时any占位 */
 export type Options = {
-    /** 图片类型 1:本地 2:网络 */
-    imageType?: 1 | 2;
+    /** 图片类型 1:本地 2:网络, 3:视频 */
+    imageType?: 1 | 2 | 3;
+    /** 网络视频地址 */
     videoSource?: string;
+    /** 在线壁纸 */
+    imageUrl?: string;
+    /** 本地图片文件 */
+    imageFile?: Blob | null;
+    /** 遮罩类型 */
     maskType?: 'radial' | 'color';
-    /**searchbar */
+
+    /** 聚焦模糊 */
     blurOnFocus?: boolean;
-    /**logo */
-    image?: string,
-    text?: string,
-    show?: boolean,
     [key: string]: any;
 };
 
