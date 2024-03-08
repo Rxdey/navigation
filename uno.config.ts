@@ -39,7 +39,8 @@ export default defineConfig({
         [/^bg-black-(\d+)$/, ([, d]) => ({ "background-color": `rgb(0 0 0 / ${d}%)` })],
         [/^l-s-(\d+)$/, ([, d]) => ({ "letter-spacing": `${d}px` })],
         [/^wh-(\d+)$/, ([, d]) => ({ 'width': `${d}px`, 'height': `${d}px`, })],
-        [/^pixel-(\d+)$/, ([, d]) => ({'background-color': 'rgb(221, 221, 221)', 'background-image': 'linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px), linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px)', 'background-position': `0px 0px, ${parseInt(d)/2}px ${parseInt(d)/2}px`, 'background-size': `${d}px ${d}px`})]
+        [/^pixel-(\d+)$/, ([, d]) => ({ 'background-color': 'rgb(221, 221, 221)', 'background-image': 'linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px), linear-gradient(45deg, rgb(255, 255, 255) 25%, transparent 0px, transparent 75%, rgb(255, 255, 255) 0px)', 'background-position': `0px 0px, ${parseInt(d) / 2}px ${parseInt(d) / 2}px`, 'background-size': `${d}px ${d}px` })],
+        [/^transition-(\d+)$/, ([, d]) => ({ 'transition': `all ${parseInt(d) / 100}s`, })],
     ],
     theme: {
         colors: {

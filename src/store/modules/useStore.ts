@@ -6,7 +6,6 @@ import { ValueOption } from '@/types';
 
 
 type State = {
-    loading: boolean;
     global: any;
     stylesOption: StylesOption;
     shortcutList: Shortcut[],
@@ -23,7 +22,6 @@ type UpdateStylesPayload = {
 
 const useStore = defineStore('main', {
     state: (): State => ({
-        loading: false,
         /** 全局设置 */
         global: {},
         /** 模块基础样式配置 */
@@ -52,7 +50,7 @@ const useStore = defineStore('main', {
         engine: '1'
     }),
     actions: {
-        UPDATE_STYLES(keyArray: string[], value: string | number | boolean | null) {
+        UPDATE_STYLES(keyArray: string[], value: string | number | boolean | null | Blob) {
             let current: any = this.stylesOption;
             keyArray.forEach((key, index) => {
                 if (index === keyArray.length - 1) {

@@ -5,17 +5,39 @@
 </template>
 
 <script setup  lang="ts">
+import { computed, watch } from 'vue';
 import useStore from '@/store/modules/useStore';
-import { computed } from 'vue';
 
 const store = useStore();
 const wallpaper = computed(() => store.stylesOption.wallpaper);
-
 const isFocusBlur = computed(() => wallpaper.value.styles?.custom?.focusBlur);
 const maskType = computed(() => wallpaper.value.options?.maskType || 'color');
+const options = computed(() => wallpaper.value.options || {});
 
-// 动态创建image
-// const bgImage = computed(() => `url(${store.stylesOption.wallpaper.options?.imageUrl})`)
+const createBackground = () => {
+    const actions = {
+        1: () => {
+            if (!options.value.imageFile) return '';
+            const url = window.URL.createObjectURL(options.value.imageFile);
+            store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${url})`);
+            return;
+        },
+        2: () => {
+            store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${options.value.imageUrl})`);
+            return;
+        },
+        3: () => {
+
+        },
+    };
+    actions[options.value.imageType || 2]();
+};
+
+watch(() => options.value.imageType, (val) => {
+    createBackground();
+}, {
+    immediate: true
+})
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="EditWallpaper alltransition mx-16" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background" @click.stop>
-    <div class="bg-white rounded-24 p-32">
+  <div class="EditWallpaper transition-30 rounded-32 mx-16 bg-white-95" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background" @click.stop>
+    <div class="p-32">
       <FrameComp title="填充模式">
         <RadioTaget v-model="editForm.styles.background.size" :options="OPTIONS.sizeOptions" />
       </FrameComp>
@@ -30,13 +30,13 @@
       <FrameComp title="修改壁纸(在线类型需要手动提交)" class="mb-0">
         <div>
           <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" class="mb-32" :active="activeType" />
-          <AnimateInput v-model="form.online" @enter="onInputConfirm" title="在线图片" placeholder="图片地址" v-if="showOnline">
+          <AnimateInput v-model="form.online" @enter="onInputConfirm" title="在线图片" placeholder="输入图片地址" v-if="showOnline">
             <template #icon>
               <div class="i-mingcute:check-line text-primary" @click="onInputConfirm(form.online)"></div>
             </template>
           </AnimateInput>
 
-          <AnimateInput v-model="form.video" @enter="onInputConfirm" title="在线视频" placeholder="视频" v-else>
+          <AnimateInput v-model="form.video" @enter="onInputConfirm" title="在线视频" placeholder="输入视频地址" v-else>
             <template #icon>
               <div class="i-mingcute:check-line text-primary" @click="onInputConfirm(form.video)"></div>
             </template>
@@ -45,12 +45,10 @@
       </FrameComp>
     </div>
 
-    <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
-    <!-- <van-dialog v-model:show="showOnline" title="在线图片" show-cancel-button theme="round-button" :beforeClose="onOnlineConfirm">
-      <div class="mx-32 px-48 py-24">
-        <input type="text" class="border-0 py-8 outline-none w-full  border-b-1 border-primary border-solid placeholder:text-sm" placeholder="图片地址" v-model="form.online">
-      </div>
-    </van-dialog> -->
+    
+    <Teleport to="#app">
+      <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
+    </Teleport>
   </div>
 </template>
 
@@ -94,7 +92,8 @@ const onBlurChange = (value: number) => {
 };
 /** 更新本地图片地址及类型 */
 const onSetLocalImage = (blob: Blob) => {
-  store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${window.URL.createObjectURL(blob)})`);
+  // store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${window.URL.createObjectURL(blob)})`);
+  store.UPDATE_STYLES(['wallpaper', 'options', 'imageFile'], blob);
   store.UPDATE_STYLES(['wallpaper', 'options', 'imageType'], 1);
 };
 /** 本地图片上传 */
@@ -178,6 +177,6 @@ watch(() => form.value.focusBlur, val => {
 
 <style scoped>
 .EditWallpaper {
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 0 32px 0 rgba(0, 0, 0, .5);
 }
 </style>

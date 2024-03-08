@@ -11,7 +11,7 @@
 
     <Teleport to="#home">
         <Transition name="flip-inout">
-            <div class="editor absolute top-50%  right-0 z-10 w-80%" v-if="showPopup">
+            <div class="editor absolute bottom-10% right-0 z-10 w-70%" v-if="showPopup">
                 <Component :is="actions[active].action" @close="onClose" />
             </div>
         </Transition>
@@ -64,6 +64,7 @@ defineExpose({
 
 <style scoped>
 .editor {
-    transform: translate3d(0, -50%, 0) rotateY(0);
+    transform: translate3d(0px, 0, 0px) rotateY(-6deg);
+    transition-delay: .3s;
 }
 </style>

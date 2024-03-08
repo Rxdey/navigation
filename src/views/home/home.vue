@@ -1,11 +1,13 @@
 <template>
   <div class="home h-screen relative overflow-hidden" id="home">
     <div class="glass wh-full absolute z-1" @click="hideMenu"></div>
-    <div class="drawers relative h-full overflow-hidden z-2" :class="{ animate: showMenu }" @click.stop>
-      
-      <Setting @animate="onAnimate" v-if="showSetting" ref="setRef"/>
-      <Wallpaper />
-      <Navigation />
+
+    <div class="drawers relative h-full z-2 " :class="{ moveanima: showMenu }" @click="onDrawerClick">
+      <div class="relative h-full overflow-hidden pixel-40 transition-50" :class="{ 'card-animate': showMenu }">
+        <Setting @animate="onAnimate" v-if="showSetting" ref="setRef" />
+        <Wallpaper />
+        <Navigation />
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +26,9 @@ const setRef = ref<InstanceType<typeof Setting>>();
 
 const onAnimate = (val: boolean) => {
   showMenu.value = !showMenu.value;
+}
+const onDrawerClick = () => {
+  if (showMenu.value) hideMenu();
 }
 const hideMenu = () => {
   showMenu.value = false;
@@ -46,6 +51,7 @@ const createStyle = (val: { styles: string, cssVar: string }) => {
   document.head.appendChild(style);
 };
 watch(() => store.styles, createStyle, { immediate: true });
+
 onMounted(() => {
   showSetting.value = true;
 });
@@ -53,24 +59,63 @@ onMounted(() => {
 
 <style>
 .home {
-  /* background-color: var(--color-primary); */
   transform-style: preserve-3d;
   perspective: 2000px;
 }
+
 .glass {
-  filter: blur(30px);
-  background-image: linear-gradient(to right, var(--color-primary) 0%, #d875ff 100%);
-  /* background-color: var(--color-primary); */
-  transform: scale(1.1);
+  background: linear-gradient(-148deg,
+      #cd5a85 30%,
+      #21264c 0,
+      #21264c 77%,
+      #282d55 0);
+  background-repeat: repeat;
+  /* background-image: linear-gradient(-135deg,
+      var(--color-primary) 25%,
+      #dfc9ff 0%,
+      #dfc9ff 50%,
+      var(--color-primary) 0,
+      var(--color-primary) 75%,
+      #dfc9ff 0%);
+  background-size: 50px 50px;
+  animation: progressMove 4s linear infinite; */
 }
+
+@keyframes progressMove {
+  0% {
+    background-position: 0px;
+  }
+
+  100% {
+    background-position: 100px;
+  }
+}
+
 .drawers {
-  transition: all .5s;
-  box-shadow: 0 0 16px rgba(0,0,0,.2);
+  transition: all .7s;
+  transform: translate3d(0, 0, 0) rotateY(0);
+  /* -webkit-box-reflect: below 10px linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .7)); */
 }
 
-.drawers.animate {
-  transform: translate3d(-20%, 0, -300px) rotateY(45deg);
-  border-radius: 48px;
+.drawers.moveanima {
+  transform: translate3d(-9%, 0, -350px) rotateY(15deg);
+}
 
+.card-animate {
+  border-radius: 48px;
+  box-shadow: 0 0 32px rgba(0, 0, 0, .5);
+  animation: custom-move 20s ease-in-out 0s alternate infinite none;
+  transform: translate3d(0%, 0, 0px) rotateY(0deg);
+}
+
+@keyframes custom-move {
+
+  50% {
+    transform: translate3d(-7%, 0, 0) rotateY(25deg);
+  }
+
+  100% {
+    transform: translate3d(-15%, 0, 0) rotateY(15deg);
+  }
 }
 </style>
