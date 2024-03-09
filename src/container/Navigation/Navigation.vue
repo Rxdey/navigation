@@ -58,7 +58,9 @@ const lockEngine = () => {
 const onfocus = () => {
     visible.value = false;
 };
-const onblur = () => {
+const onblur = (val: string) => {
+    // 存在内容时，不切换到导航
+    if (val.trim()) return;
     setTimeout(() => {
         if (engineClick.value) return;
         visible.value = true;

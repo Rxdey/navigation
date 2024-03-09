@@ -47,8 +47,6 @@
         </div>
       </FrameComp>
     </div>
-
-
     <Teleport to="#app">
       <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
     </Teleport>

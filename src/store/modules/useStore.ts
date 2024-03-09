@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import type { StylesOption, Shortcut, Engine, Keys, Options, Styles } from '../types';
 import { DEFAULT_OPTIONS } from '../define';
 import { options2CSSVar } from '@/store/tool';
+import localforage from 'localforage';
 
 
 type State = {
@@ -17,7 +18,7 @@ const useStore = defineStore('main', {
         /** 全局设置 */
         global: {},
         /** 模块基础样式配置 */
-        stylesOption: DEFAULT_OPTIONS,
+        stylesOption: JSON.parse(JSON.stringify(DEFAULT_OPTIONS)),
         /** 快捷方式列表 */
         shortcutList: [
             { title: 'bilibili', url: '' },
@@ -56,6 +57,10 @@ const useStore = defineStore('main', {
         UPDATE_ENGINE(engine: string) {
             this.engine = engine;
         },
+        RESET_STORE() {
+            localforage.clear();
+            this.stylesOption = DEFAULT_OPTIONS;
+        }
     },
     getters: {
         styles(state) {

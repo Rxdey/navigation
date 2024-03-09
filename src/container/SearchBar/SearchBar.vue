@@ -25,13 +25,13 @@ const value = ref('');
 const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnFocus)
 
 const onfocus = () => {
-    emit('focus', inputRef.value);
+    emit('focus', value.value);
     if (blurOnFocus.value) {
         store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '1px');
     }
 };
 const onblur = () => {
-    emit('blur', inputRef.value);
+    emit('blur', value.value);
     if (blurOnFocus.value) {
         store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '');
     }
