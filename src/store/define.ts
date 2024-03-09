@@ -4,7 +4,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 壁纸 */
     wallpaper: {
         options: {
-            imageUrl: '/img/bg/bg.jpg',
+            imageUrl: '',
             imageType: 2,
             imageFile: null,
             videoSource: '',
@@ -17,7 +17,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
                 size: 'cover',
                 repeat: 'no-repeat',
                 position: 'center top',
-                image: 'url(/img/bg/bg.jpg)'
+                image: ''
             },
             custom: {
                 blur: '0px',
@@ -35,7 +35,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 搜索栏 */
     searchbar: {
         options: {
-            blurOnFocus: false
+            blurOnFocus: true
         },
         styles: {
             width: '90%',

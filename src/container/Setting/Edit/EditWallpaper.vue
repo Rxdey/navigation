@@ -1,42 +1,45 @@
 <template>
-  <div class="EditWallpaper transition-30 rounded-32 mx-16 bg-white-95" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background" @click.stop>
+  <div class="EditWallpaper transition-30 mx-16" v-if="editForm.options && editForm.styles?.custom && editForm.styles?.background" @click.stop>
     <div class="p-32">
       <FrameComp title="填充模式">
         <RadioTaget v-model="editForm.styles.background.size" :options="OPTIONS.sizeOptions" />
       </FrameComp>
-      <FrameComp title="重复">
-        <van-switch v-model="editForm.styles.background.repeat" size="18px" active-color="#9b56fc" style="--van-switch-width:2.3em" active-value="repeat" inactive-value="no-repeat" />
-      </FrameComp>
       <FrameComp title="对齐方式">
         <RadioTaget v-model="editForm.styles.background.position" :options="OPTIONS.positionOptions" />
+      </FrameComp>
+      <FrameComp title="重复">
+        <van-switch v-model="editForm.styles.background.repeat" size="18px" active-color="#9b56fc" style="--van-switch-width:2.3em" active-value="repeat" inactive-value="no-repeat" />
       </FrameComp>
       <FrameComp title="遮罩类型">
         <RadioTaget v-model="editForm.options.maskType" :options="OPTIONS.optionsOptions" />
       </FrameComp>
-      <FrameComp :title="`遮罩浓度(${editForm.styles.custom.mask})`" class="mb-40">
+      <FrameComp :title="`遮罩透明度(${editForm.styles.custom.mask})`" class="mb-32">
         <van-slider v-model="editForm.styles.custom.mask" :min="0" :max="1" :step="0.01" class="mt-32">
           <template #button>
             <div class="slider-button"></div>
           </template>
         </van-slider>
       </FrameComp>
-      <FrameComp title="背景模糊" class="mb-40">
-        <van-slider v-model="form.focusBlur" :min="0" :max="10" :step="1" class="mt-32">
+      <FrameComp :title="`背景模糊(${form.focusBlur}px)`" class="mb-32">
+        <van-slider v-model="form.focusBlur" :min="0" :max="30" :step="1" class="mt-32">
           <template #button>
             <div class="slider-button"></div>
           </template>
         </van-slider>
       </FrameComp>
+      <FrameComp title="背景颜色" class="mb-24">
+        <ColorPicker v-if="editForm.styles.background.color" v-model="editForm.styles.background.color" />
+      </FrameComp>
       <FrameComp title="修改壁纸(在线类型需要手动提交)" class="mb-0">
         <div>
-          <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" class="mb-32" :active="activeType" />
+          <RadioTaget :options="OPTIONS.backgroundOptions" cliclMode @click="onEditBackground" class="mb-0" :active="activeType" />
           <AnimateInput v-model="form.online" @enter="onInputConfirm" title="在线图片" placeholder="输入图片地址" v-if="showOnline">
             <template #icon>
               <div class="i-mingcute:check-line text-primary" @click="onInputConfirm(form.online)"></div>
             </template>
           </AnimateInput>
 
-          <AnimateInput v-model="form.video" @enter="onInputConfirm" title="在线视频" placeholder="输入视频地址" v-else>
+          <AnimateInput v-model="form.video" @enter="onInputConfirm" title="在线视频" placeholder="输入视频地址" class="text-white" v-else>
             <template #icon>
               <div class="i-mingcute:check-line text-primary" @click="onInputConfirm(form.video)"></div>
             </template>
@@ -45,7 +48,7 @@
       </FrameComp>
     </div>
 
-    
+
     <Teleport to="#app">
       <CropImage ref="cropImageRef" @confirm="onSetLocalImage" />
     </Teleport>
@@ -54,7 +57,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-import { CustomTitle, RadioTaget, CropImage, AnimateInput } from '@/components';
+import { ColorPicker, RadioTaget, CropImage, AnimateInput } from '@/components';
 import * as OPTIONS from '../options';
 import useStore from '@/store/modules/useStore';
 import { StylesOption } from '@/store/types';
@@ -177,6 +180,12 @@ watch(() => form.value.focusBlur, val => {
 
 <style scoped>
 .EditWallpaper {
-  box-shadow: 0 0 32px 0 rgba(0, 0, 0, .5);
+  /* border-radius: 16px; */
+  box-shadow: 0 0 16px rgba(0, 0, 0, 1);
+  background: linear-gradient(-198deg,
+      var(--color-ared) 20%,
+      var(--color-dblue) 0,
+      var(--color-dblue) 82%,
+      var(--color-ablue) 0);
 }
 </style>

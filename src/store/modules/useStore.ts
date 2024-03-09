@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import type { StylesOption, Shortcut, Engine, Keys, Options, Styles } from '../types';
 import { DEFAULT_OPTIONS } from '../define';
 import { options2CSSVar } from '@/store/tool';
-import { ValueOption } from '@/types';
 
 
 type State = {
@@ -11,13 +10,6 @@ type State = {
     shortcutList: Shortcut[],
     engineList: Engine[],
     engine: string,
-};
-
-type UpdateStylesPayload = {
-    module: Keys;
-    type: 'styles' | 'options';
-    key: keyof Options | keyof Styles;
-    value: ValueOption | (<T>(e: T) => T);
 };
 
 const useStore = defineStore('main', {

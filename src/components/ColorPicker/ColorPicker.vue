@@ -1,23 +1,40 @@
 <template>
-    <van-popup teleport="body" v-model:show="show" position="top" :overlay="false" class="h-[40%]">
-        <Chrome v-model="colors" />
-    </van-popup>
+    <van-popover placement="top">
+        <div>
+            <Chrome v-model="colors" @update:modelValue="onChange" />
+        </div>
+        <template #reference>
+            <div class="wh-40 border-2 border-solid border-white rounded-8px" @click="updateShow" :style="{ backgroundColor: `${colors}` }"></div>
+        </template>
+    </van-popover>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
+import { ColorPickerValue } from '@/types';
 import { Chrome } from '@ckpack/vue-color';
-import { ColorInputWithoutInstance } from 'tinycolor2';
+import { useVModel } from '@vueuse/core';
+import type { ColorInput } from '@ctrl/tinycolor';
 
-const colors = ref<ColorInputWithoutInstance>('#000000');
+
+const emit = defineEmits(['update:modelValue']);
+const props = defineProps<{
+    modelValue: string;
+}>();
+const value = useVModel(props, 'modelValue', emit);
+const colors = ref<ColorInput>('');
 const show = ref(false);
 
-const updateShow = (val = true) => {
-    show.value = val;
+const updateShow = () => {
+    show.value = true;
 };
-const updateColors = (val: string) => {
+const onChange = (val: ColorPickerValue) => {
+    const { r, g, b, a } = val.rgba;
+    value.value = `rgba(${r},${g},${b},${a})`;
+};
+watch(() => value.value, val => {
     colors.value = val;
-};
+})
 </script>
 
 <style scoped></style>

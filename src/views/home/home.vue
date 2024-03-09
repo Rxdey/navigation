@@ -1,8 +1,9 @@
 <template>
   <div class="home h-screen relative overflow-hidden" id="home">
-    <div class="glass wh-full absolute z-1" @click="hideMenu"></div>
-
-    <div class="drawers relative h-full z-2 " :class="{ moveanima: showMenu }" @click="onDrawerClick">
+    <!-- 编辑模式背景 -->
+    <div class="editor-background wh-full absolute z-1" @click="hideMenu"></div>
+    <!-- 主界面 -->
+    <div class="stage relative h-full z-2 " :class="{ moveanima: showMenu }" @click="onDrawerClick">
       <div class="relative h-full pixel-40 transition-50" :class="{ 'card-animate': showMenu }">
         <Setting @animate="onAnimate" v-if="showSetting" ref="setRef" />
         <Wallpaper />

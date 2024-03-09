@@ -3,7 +3,7 @@
   perspective: 2000px;
 }
 
-.glass {
+.editor-background {
   background: linear-gradient(-148deg,
       var(--color-ared) 30%,
       var(--color-dblue) 0,
@@ -31,13 +31,13 @@
   }
 }
 
-.drawers {
+.stage {
   transition: all .7s;
   transform: translate3d(0, 0, 0) rotateY(0);
-}
 
-.drawers.moveanima {
-  transform: translate3d(-30%, 0, -550px) rotateX(15deg) rotateY(50deg) rotateZ(-10deg)
+  &.moveanima {
+    transform: translate3d(-30%, 0, -550px) rotateX(15deg) rotateY(50deg) rotateZ(-10deg)
+  }
 }
 
 .card-animate {

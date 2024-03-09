@@ -60,7 +60,7 @@ watch(() => options.value.imageType, (val) => {
 
     &.focus {
         filter: blur(var(--wallpaper-custom-focusBlur));
-        transform: scale(1.02);
+        transform: scale(1.01);
     }
 
     .wallpaper-mask {

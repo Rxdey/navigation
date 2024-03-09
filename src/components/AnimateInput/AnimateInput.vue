@@ -1,7 +1,7 @@
 <template>
   <div class="AnimateInput relative py-16" :class="{ focus: isFoucs }">
-    <div class="transition-30 text-xs text-gray mb-8 origin-top-left" :class="isFoucs && 'text-primary scale-80'">{{ title }}</div>
-    <div class="flex-row transition-30 origin-left-center" :class="isFoucs ? 'scale-100' : 'scale-80'">
+    <div class="transition-30 text-xs text-white mb-8 origin-top-left" :class="isFoucs && 'text-primary scale-90'">{{ title }}</div>
+    <div class="flex-row transition-30 origin-left-center" :class="isFoucs ? 'scale-100' : 'scale-90'">
       <div class="relative flex-1">
         <input type="text" class="border-none h-full outline-none w-full placeholder:(text-sm text-gray) bg-transparent" :placeholder="placeholder" @focus="onfoucs" @blur="onblur" v-model="value" @keydown.enter="onEnter">
       </div>

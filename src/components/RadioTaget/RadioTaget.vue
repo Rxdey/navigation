@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<{
     active?: number;
 }>(), {
     options: () => [],
-    color: '#9b56fc',
+    color: 'var(--color-primary)',
     cliclMode: false,
     active: -1
 });
