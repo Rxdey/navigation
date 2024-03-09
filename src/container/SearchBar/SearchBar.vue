@@ -1,5 +1,5 @@
 <template>
-    <div class="searchbar relative flex-row items-center text-sm rounded-full px-24">
+    <div class="searchbar relative flex-row items-center text-sm rounded-full px-24 transition-30">
         <div class="mr-8">
             <div class="i-mingcute:search-3-line"></div>
         </div>

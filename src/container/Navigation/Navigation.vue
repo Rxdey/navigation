@@ -1,34 +1,35 @@
 <template>
     <div class="navigation w-full absolute" ref="navigationRef" :class="{
-        animate: resize && offset && !visible
+        animate: resize && offset && !visible, splitWrap: showMenu
     }">
         <!-- logo -->
         <Logo />
         <!-- 搜索框 -->
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" ref="searchRef" />
         <!-- 搜索引擎 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10" :class="hideEngine ? 'invisible' : 'visible'">
-            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)">
+        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10 transition-30" :class="[hideEngine ? 'invisible' : 'visible']">
+            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)" :shadow="showMenu">
                 <span v-if="engine.title">{{ engine.title }}</span>
                 <div v-else class="i-mingcute:add-fill"></div>
             </MenuCard>
         </TransitionGroup>
 
         <!-- 快捷导航 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap grid grid-cols-4 gap-20">
-            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" />
+        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap grid grid-cols-4 gap-20 transition-30">
+            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" :shadow="showMenu" />
         </TransitionGroup>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, Ref, inject } from 'vue';
 import { SearchBar, Logo } from '@/container';
 import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
 import useResize from './useResize';
 
-const dely = 0.025;
+const dely = 0.02;
+const showMenu: Ref<boolean> | undefined = inject('showMenu');
 const store = useStore();
 const visible = ref(false);
 const engineClick = ref(false);
@@ -141,5 +142,11 @@ onMounted(() => {
 .engine.active {
     background-color: var(--engine-custom-background);
     color: var(--engine-custom-color);
+}
+
+.splitWrap {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transform: translate3d(15%, 0, 50px);
 }
 </style>

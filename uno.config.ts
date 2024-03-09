@@ -50,7 +50,10 @@ export default defineConfig({
             'warning': 'var(--color-warning)',
             'danger': 'var(--color-danger)',
             'board': '#f5f5f5',
-            'active': 'rgb(242,243,245)'
+            'active': 'rgb(242,243,245)',
+            'ared': 'var(--color-ared)',
+            'ablue': 'var(--color-ablue)',
+            'dblue': 'var(--color-dblue)',
         },
         fontSize: {
             xs: '24px',

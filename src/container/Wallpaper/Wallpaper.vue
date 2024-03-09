@@ -1,14 +1,16 @@
 <template>
-    <div class="wallpaper absolute" :class="{ custom: !!isFocusBlur }">
+    <div class="wallpaper absolute" :class="{ focus: !!isFocusBlur, reflect: showMenu }">
         <div class="wallpaper-mask h-full" :class="maskType"></div>
     </div>
 </template>
 
 <script setup  lang="ts">
-import { computed, watch } from 'vue';
+import { computed, watch, inject } from 'vue';
 import useStore from '@/store/modules/useStore';
+import { Ref } from 'vue';
 
 const store = useStore();
+const showMenu: Ref<boolean> | undefined = inject('showMenu');
 const wallpaper = computed(() => store.stylesOption.wallpaper);
 const isFocusBlur = computed(() => wallpaper.value.styles?.custom?.focusBlur);
 const maskType = computed(() => wallpaper.value.options?.maskType || 'color');
@@ -48,8 +50,15 @@ watch(() => options.value.imageType, (val) => {
     right: calc(var(--wallpaper-custom-blur)*-1);
     transition: .3s all linear;
     filter: blur(var(--wallpaper-custom-blur));
+    -webkit-box-reflect: below 10px linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .7));
 
-    &.custom {
+    &.reflect {
+
+        border-radius: 48px;
+        overflow: hidden;
+    }
+
+    &.focus {
         filter: blur(var(--wallpaper-custom-focusBlur));
         transform: scale(1.02);
     }
