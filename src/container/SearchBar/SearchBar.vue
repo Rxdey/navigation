@@ -27,7 +27,7 @@ const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnF
 const onfocus = () => {
     emit('focus', inputRef.value);
     if (blurOnFocus.value) {
-        store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '4px');
+        store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '1px');
     }
 };
 const onblur = () => {

@@ -28,7 +28,7 @@ import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
 import useResize from './useResize';
 
-const dely = 0.02;
+const dely = 0.025;
 const showMenu: Ref<boolean> | undefined = inject('showMenu');
 const store = useStore();
 const visible = ref(false);
@@ -43,6 +43,10 @@ const offset = ref(0);
 const hideEngine = ref(true);
 const { resize, windowHeight } = useResize();
 const animateTop = computed(() => `${windowHeight.value - offset.value - 10}px`);
+const realTop = computed(() => {
+    // if (!store.stylesOption.wallpaper.styles?.top) return 0;
+    return `${(parseInt(store.stylesOption.navigation.styles?.top || '0') / 100) * window.innerHeight}px`
+})
 
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
 const lockEngine = () => {
@@ -123,6 +127,7 @@ onMounted(() => {
 .navigation {
     transition: 0.3s all linear;
     transition-delay: .2s;
+    top: v-bind(realTop);
 
     &.animate {
         top: v-bind(animateTop);

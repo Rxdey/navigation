@@ -35,7 +35,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 搜索栏 */
     searchbar: {
         options: {
-            blurOnFocus: true
+            blurOnFocus: false
         },
         styles: {
             width: '90%',
