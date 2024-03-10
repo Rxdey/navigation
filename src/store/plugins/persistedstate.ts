@@ -4,8 +4,9 @@ import localforage from 'localforage';
 
 export function persistedstate({ store }: PiniaPluginContext) {
   if (store.$id !== 'main') return;
-  // console.log(6)
+  // 注册慢了
   localforage.getItem('mainStore').then((res: any) => {
+    console.log('init')
     if (res) {
       res.stylesOption.wallpaper.styles.custom.focusBlur = ''
       store.$patch(res);

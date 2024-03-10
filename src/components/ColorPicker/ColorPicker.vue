@@ -4,7 +4,10 @@
             <Chrome v-model="colors" @update:modelValue="onChange" />
         </div>
         <template #reference>
-            <div class="wh-40 border-2 border-solid border-white rounded-8px" @click="updateShow" :style="{ backgroundColor: `${colors}` }"></div>
+            <div class="wh-40 border-2 border-solid border-white rounded-8px relative overflow-hidden" @click="updateShow">
+                <div class="wh-full absolute z-2 top-0 left-0" :style="{ backgroundColor: `${colors}` }"></div>
+                <div class="pixel-20 wh-full absolute z-1 top-0 left-0"></div>
+            </div>
         </template>
     </van-popover>
 </template>

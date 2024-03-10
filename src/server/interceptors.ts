@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { ResponseType } from './responseTypes';
+import qs from 'qs';
 
 axios.defaults.withCredentials = true;
 
@@ -33,4 +34,28 @@ const defaultInstance = <D>(config: AxiosCustomConfig<D>) => {
   return instance;
 };
 
+/**
+ * jsonp请求
+ * @param url
+ * @param obj
+ * @returns
+ */
+export const jsonp = <T>(url: string, obj: ActionType): Promise<T> => {
+  const data = qs.stringify(obj);
+  return new Promise((resolve, reject) => {
+    window.jsonCallBack = (result: T) => {
+      resolve(result);
+    };
+    const JSONP = document.createElement('script');
+    JSONP.type = 'text/javascript';
+    JSONP.src = `${url}?${data}&cb=jsonCallBack`;
+    document.getElementsByTagName('head')[0].appendChild(JSONP);
+    JSONP.onerror = (e) => {
+      reject(e);
+    };
+    setTimeout(() => {
+      document.getElementsByTagName('head')[0].removeChild(JSONP);
+    }, 500);
+  });
+};
 export default defaultInstance;

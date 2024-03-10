@@ -4,7 +4,7 @@
     </div>
 
     <ActionSheet v-model="showAction" :actions="actions" @select="onSelect" />
-
+    <!-- 分类编辑 -->
     <Teleport to="#home">
         <Transition name="flip-inout">
             <div class="editor absolute top-0 left-0 z-10 wh-full" @click.stop="showPopup = false" v-if="showPopup">
@@ -29,7 +29,7 @@ const active = ref(0);
 
 const actions = [
     { name: '背景设置', action: EditWallpaper },
-    { name: '导航设置', subname: '添加/修改导航', action: EditShortcut },
+    { name: '导航设置', action: EditShortcut },
     { name: '全局设置', action: EditGolbal }
 ];
 
@@ -61,5 +61,4 @@ defineExpose({
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

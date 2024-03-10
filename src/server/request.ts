@@ -1,4 +1,4 @@
-import defaultInstance, { AxiosCustomConfig } from './interceptors';
+import defaultInstance, { AxiosCustomConfig, jsonp } from './interceptors';
 import { ResponseType } from './responseTypes';
 import { BASE_URL } from "./api.config";
 import { mergeObjects, getSearchCode } from "@/utils";
@@ -23,7 +23,7 @@ const BASE_CONFIG: AxiosCustomConfig = {
 const request = async <T, P>(config: AxiosCustomConfig<T>, data?: T): Promise<ResponseType<P>> => {
 
   const optionResult = mergeObjects(config, BASE_CONFIG);
-  const { method } = config;
+  const { method, type, url } = config;
   if (method && method.toUpperCase() === 'GET') {
     optionResult.params = data;
   } else {
@@ -31,6 +31,10 @@ const request = async <T, P>(config: AxiosCustomConfig<T>, data?: T): Promise<Re
   }
   const instance = defaultInstance(optionResult);
   try {
+    if (type === 'jsonp') {
+      const res = await jsonp<P>(url!, data!);
+      return { data: res };
+    }
     const res: AxiosResponse<ResponseType<P>> = await instance(optionResult);
     return res.data;
   } catch (error: any) {

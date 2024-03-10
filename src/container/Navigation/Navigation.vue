@@ -114,6 +114,8 @@ const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
     lockEngine();
 };
 onMounted(() => {
+    console.log(engine.value);
+    activeEngine.value = engine.value ? engineList.value.findIndex(e => e.id === engine.value) : 0;
     if (navigationRef.value) {
         offset.value = navigationRef.value.clientHeight;
         visible.value = true;
@@ -121,7 +123,6 @@ onMounted(() => {
             hideEngine.value = false;
         }, 300);
     }
-    activeEngine.value = engine.value ? engineList.value.findIndex(e => e.id === engine.value) : 0;
 });
 </script>
 

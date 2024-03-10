@@ -1,8 +1,7 @@
-// 没有在线文档就手写
-import * as login from './model/login';
+import * as index from './model/index';
 
 const Server = {
-    login,
+    index,
 };
 
 export default Server;
