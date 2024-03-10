@@ -20,8 +20,8 @@
           </template>
         </van-slider>
       </FrameComp>
-      <FrameComp :title="`背景模糊(${form.focusBlur}px)`" class="mb-32">
-        <van-slider v-model="form.focusBlur" :min="0" :max="30" :step="1" class="mt-32">
+      <FrameComp title="背景模糊" class="mb-32">
+        <van-slider v-model="form.blur" :min="0" :max="30" :step="1" class="mt-32" @update:model-value="onChange($event, ['wallpaper', 'styles', 'custom', 'blur'])">
           <template #button>
             <div class="slider-button"></div>
           </template>
@@ -54,14 +54,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, nextTick } from 'vue';
 import { ColorPicker, RadioTaget, CropImage, AnimateInput } from '@/components';
 import * as OPTIONS from '../options';
 import useStore from '@/store/modules/useStore';
 import { StylesOption } from '@/store/types';
 import FrameComp from '../comp/FrameComp.vue';
 import { uploadFile } from '@/utils/file';
-import { nextTick } from 'vue';
 import { showConfirmDialog, showToast } from 'vant';
 
 const store = useStore();
@@ -69,28 +68,16 @@ const wallpaperOptions = computed(() => store.stylesOption.wallpaper);
 const activeType = computed(() => {
   return OPTIONS.backgroundOptions.findIndex(e => e.type === wallpaperOptions.value.options?.imageType);
 })
-const windowWidth = ref(180);
 const showOnline = ref(true);
-
-const form = ref<{
-  focusBlur: number;
-  online: string;
-  video: string;
-}>({
-  focusBlur: 0,
+const form = ref({
   online: '',
-  video: ''
+  video: '',
+  blur: 0
 })
-
 // 直接通过引用类型修改state
 const editForm = ref<StylesOption['wallpaper']>({});
-
 const previewRef = ref<HTMLDivElement>();
 const cropImageRef = ref<InstanceType<typeof CropImage>>();
-/** 模糊度修改 */
-const onBlurChange = (value: number) => {
-  store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'blur'], `${value}px`);
-};
 /** 更新本地图片地址及类型 */
 const onSetLocalImage = (blob: Blob) => {
   // store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], `url(${window.URL.createObjectURL(blob)})`);
@@ -160,20 +147,16 @@ const onEditBackground = async (data: {
   }
   console.log(value);
 };
-
+/** 原值手动修改 */
+const onChange = (val: any, type: string[]) => {
+  store.UPDATE_STYLES(type, `${val}px`);
+};
 onMounted(() => {
   editForm.value = wallpaperOptions.value;
-  form.value.focusBlur = parseInt(wallpaperOptions.value?.styles?.custom?.blur || '0');
+  form.value.blur = parseInt(wallpaperOptions.value?.styles?.custom?.blur || '0');
   form.value.online = wallpaperOptions.value.options?.image || '';
   form.value.video = wallpaperOptions.value.options?.videoSource || '';
-  nextTick(() => {
-    if (previewRef.value) windowWidth.value = previewRef.value.clientHeight / window.innerHeight * window.innerWidth;
-  });
 });
-
-watch(() => form.value.focusBlur, val => {
-  store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'blur'], `${val}px`);
-})
 </script>
 
 <style scoped>
