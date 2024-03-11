@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch, inject } from 'vue';
 import { ActionSheet } from '@/components';
-import { EditWallpaper, EditGolbal, EditShortcut } from './Edit';
+import { EditWallpaper, EditGolbal, EditShortcut, EditSearchBar } from './Edit';
 
 const emit = defineEmits(['animate']);
 
@@ -30,6 +30,7 @@ const active = ref(0);
 const actions = [
     { name: '背景设置', action: EditWallpaper },
     { name: '导航设置', action: EditShortcut },
+    // { name: '搜索框', action: EditSearchBar },
     { name: '全局设置', action: EditGolbal }
 ];
 

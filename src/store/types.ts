@@ -61,15 +61,16 @@ export type Options = {
 /** 所有模块 */
 export type Keys = 'wallpaper' | 'searchbar' | 'navigation' | 'shortcut' | 'engine' | 'logo';
 
+export type DefineOpt = {
+    options?: Options;
+    styles?: Styles;
+};
 /**
  * 配置项
  * 解析为cssVar --[key]-[name]: [value];
  */
 export type StylesOption = {
-    [key in Keys]: {
-        options?: Options;
-        styles?: Styles;
-    }
+    [key in Keys]: DefineOpt
 };
 
 /** 全局设定 */

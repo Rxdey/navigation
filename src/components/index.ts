@@ -5,3 +5,4 @@ export { default as RadioTaget } from './RadioTaget/RadioTaget.vue';
 export { default as CropImage } from './CropImage/CropImage.vue';
 export { default as AnimateInput } from './AnimateInput/AnimateInput.vue';
 export { default as ActionSheet } from './ActionSheet/ActionSheet.vue';
+export { default as AutoSlider } from './AutoSlider/AutoSlider.vue';

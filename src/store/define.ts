@@ -21,7 +21,6 @@ export const DEFAULT_OPTIONS: StylesOption = {
             },
             custom: {
                 blur: '0px',
-                focusBlur: '',
                 mask: 0.32,
             }
         },
@@ -35,7 +34,9 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 搜索栏 */
     searchbar: {
         options: {
-            blurOnFocus: true
+            isFocus: false,
+            blurOnFocus: true,
+            scaleOnFocus: true
         },
         styles: {
             width: '90%',

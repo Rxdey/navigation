@@ -29,35 +29,29 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 import useStore from '@/store/modules/useStore';
+import useStatus from '@/store/modules/useStatus';
 import Server from '@/server';
 import { nextTick } from 'vue';
 
 const store = useStore();
+const statusStore = useStatus();
 const emit = defineEmits(['focus', 'blur', 'clear']);
 const inputRef = ref<HTMLInputElement>();
 const value = ref('');
 // 上次搜索文本，防止多余搜索
 const lastValue = ref('');
-const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnFocus);
 const suggestionList = ref<string[]>([]);
 const showSuggest = ref(false);
 
-const focusLock = ref(false);
-
 const onfocus = () => {
-    focusLock.value = true;
     emit('focus', value.value);
     showSuggest.value = !!(suggestionList.value.length && value.value.trim());
-    if (blurOnFocus.value) {
-        store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '1px');
-    }
+    statusStore.UPDATE_FOCUS(true);
 };
 const onblur = () => {
     emit('blur', value.value);
-    if (blurOnFocus.value) {
-        store.UPDATE_STYLES(['wallpaper', 'styles', 'custom', 'focusBlur'], '');
-    }
     showSuggest.value = false;
+    statusStore.UPDATE_FOCUS(false);
 };
 const onClear = () => {
     value.value = '';

@@ -1,8 +1,8 @@
 <template>
     <Teleport to="#home">
         <TransitionGroup name="right-inout" tag="div" class="action-wrap absolute bottom-18% right-0 z-9 flex-col items-end gap-48" @enter="onEnter" @leave="onLeave">
-            <div class="action-item text-white h-90 relative right-0 flex-row items-center bg-dblue w-50vw transition-50" v-for="(act, i) in actions" :class="{ 'action-animate': show }" :key="i" v-show="show" @click="onSelect(act, i)" :data-index="i" @transitionend="onClear" :style="{ scale: (i + 1) % 2 === 1 ? '1.2' : '1' }">
-                <div class="flex-1 px-32 text-32 font-bold">{{ act.name }}</div>
+            <div class="action-item text-white h-90 relative right-0 flex-row items-center bg-black-50 w-50vw transition-50" v-for="(act, i) in actions" :class="{ 'action-animate': show }" :key="i" v-show="show" @click="onSelect(act, i)" :data-index="i" @transitionend="onClear" :style="{ scale: (i + 1) % 2 === 1 ? '1.2' : '1' }">
+                <div class="flex-1 px-32 text-32">{{ act.name }}</div>
             </div>
         </TransitionGroup>
     </Teleport>
@@ -38,7 +38,8 @@ const onSelect = (data: Actions, i: number) => {
 .action-wrap {
     transition: .3s all;
     transform-origin: 100% 100%;
-    transform: translate3d(12%, 0, 0px) rotateY(-40deg) rotateX(20deg) rotateZ(0deg) skew(0deg, 0deg);
+    /* transform: translate3d(12%, 0, 0px) rotateY(-40deg) rotateX(20deg) rotateZ(0deg) skew(0deg, 0deg); */
+    transform: translate3d(15%, 0, 0px) rotateY(-23deg) rotateX(10deg) rotateZ(0deg) skew(-15deg, 0deg);
 }
 
 .action-item {

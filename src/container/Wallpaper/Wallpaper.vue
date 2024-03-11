@@ -1,18 +1,25 @@
 <template>
-    <div class="wallpaper transition-30 absolute overflow-hidden w-full" :class="{ focus: !!isFocusBlur, reflect: showMenu }">
-        <div class="wallpaper-mask h-full" :class="maskType"></div>
+    <div class="wallpaper transition-100 absolute overflow-hidden w-full" :class="{ focus: isFocus && blurOnFocus, scale: scaleOnFocus && isFocus, reflect: showMenu }">
+        <div class="wallpaper-mask wh-full top-0 left-0" :class="maskType"></div>
     </div>
 </template>
 
 <script setup  lang="ts">
-import { computed, watch, inject } from 'vue';
+import { computed, watch, inject, Ref } from 'vue';
 import useStore from '@/store/modules/useStore';
-import { Ref } from 'vue';
+import useStatus from '@/store/modules/useStatus';
 
 const store = useStore();
+const statusStore = useStatus();
+
 const showMenu: Ref<boolean> | undefined = inject('showMenu');
 const wallpaper = computed(() => store.stylesOption.wallpaper);
-const isFocusBlur = computed(() => wallpaper.value.styles?.custom?.focusBlur);
+
+/** 是否聚焦 */
+const isFocus = computed(() => statusStore.focus);
+const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnFocus);
+const scaleOnFocus = computed(() => store.stylesOption.searchbar.options?.scaleOnFocus);
+
 const maskType = computed(() => wallpaper.value.options?.maskType || 'color');
 const options = computed(() => wallpaper.value.options || {});
 
@@ -35,7 +42,7 @@ const createBackground = () => {
     };
     actions[options.value.imageType || 2]();
 };
-watch(() => options.value.imageType, (val) => {
+watch(() => [options.value.imageType, options.value.imageFile, options.value.imageUrl, options.value.videoSource], (val) => {
     createBackground();
 }, {
     immediate: true
@@ -50,17 +57,21 @@ watch(() => options.value.imageType, (val) => {
     bottom: calc(var(--wallpaper-custom-blur)*-1);
     right: calc(var(--wallpaper-custom-blur)*-1); */
     filter: blur(var(--wallpaper-custom-blur));
-    -webkit-box-reflect: below 10px linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .7));
+    /* -webkit-box-reflect: below 10px linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .7)); */
     height: v-bind(height);
-    transform: scale(1.01);
+
     &.reflect {
         border-radius: 48px;
         overflow: hidden;
     }
 
     &.focus {
-        filter: blur(var(--wallpaper-custom-focusBlur));
-        /* transform: scale(1.01); */
+        filter: blur(2px);
+        transform: scale(1.01);
+    }
+
+    &.scale {
+        transform: scale(1.1);
     }
 
     .wallpaper-mask {

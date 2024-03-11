@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-import FrameComp from '../comp/FrameComp.vue';
+import EditCell from '../comp/EditCell.vue';
 
 import useStore from '@/store/modules/useStore';
 

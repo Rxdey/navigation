@@ -55,6 +55,11 @@ export const filetoBase64 = (blob: Blob | File): Promise<string | ArrayBuffer | 
     });
 };
 
+export const fileToBlob = async (file: File) => {
+    const base64 = await filetoBase64(file);
+    return dataURLtoBlob(base64 as string);
+};
+
 /**
    * 图片压缩
    * @param {File} image 图片

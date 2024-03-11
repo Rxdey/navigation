@@ -37,6 +37,9 @@ const onChange = (val: ColorPickerValue) => {
 };
 watch(() => value.value, val => {
     colors.value = val;
+});
+onMounted(() => {
+    colors.value = props.modelValue;
 })
 </script>
 
