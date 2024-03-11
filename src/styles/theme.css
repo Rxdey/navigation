@@ -5,4 +5,5 @@
     --van-warning-color: var(--color-warning);
     --van-divider-margin: 20px 0;
     --van-slider-active-background: var(--color-primary);
+    --van-button-small-height: 50px;
 }

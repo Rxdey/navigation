@@ -1,29 +1,27 @@
 <template>
-    <div class="EditGolbal transition-30 mx-16 min-h-50vh p-32" @click.stop>
-        <van-button round type="primary" size="small" @click="onReset">重置数据</van-button>
-    </div>
+    <Frame title="全局设置" @click.stop>
+        <EditCell title="其它设置" class="mb-32">
+            <van-button round type="primary" size="small" @click="onReset">重置配置</van-button>
+        </EditCell>
+    </Frame>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import Frame from '../comp/Frame.vue';
 import EditCell from '../comp/EditCell.vue';
-
 import useStore from '@/store/modules/useStore';
+import { showConfirmDialog } from 'vant';
 
 const store = useStore();
 
 const onReset = () => {
-    store.RESET_STORE();
+    showConfirmDialog({
+        title: '注意',
+        message: '清除后不可恢复，请备份好配置数据，确认要清除吗？',
+    }).then(() => {
+        store.RESET_STORE();
+    }).catch(() => { })
 };
 </script>
 
-<style scoped>
-.EditGolbal {
-    box-shadow: 0 0 16px rgba(0, 0, 0, 1);
-    background: linear-gradient(-198deg,
-            var(--color-ared) 20%,
-            var(--color-dblue) 0,
-            var(--color-dblue) 82%,
-            var(--color-ablue) 0);
-}
-</style>
+<style scoped></style>

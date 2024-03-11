@@ -26,7 +26,7 @@
     </EditCell>
 
     <EditCell title="其它设置" class="mb-32">
-      <van-button round type="primary" size="mini" icon="plus">添加导航</van-button>
+      <van-button round type="primary" size="small" icon="plus">添加导航</van-button>
     </EditCell>
   </Frame>
 </template>
