@@ -8,13 +8,17 @@
 import { computed, watch, inject, Ref } from 'vue';
 import useStore from '@/store/modules/useStore';
 import useStatus from '@/store/modules/useStatus';
+import useResize from '@/hooks/useResize';
 
 const store = useStore();
 const statusStore = useStatus();
+const { windowHeight, innerHeight } = useResize();
+
+
+const height = computed(() => Math.max(windowHeight.value, innerHeight) + 'px');
 
 const showMenu: Ref<boolean> | undefined = inject('showMenu');
 const wallpaper = computed(() => store.stylesOption.wallpaper);
-
 /** 是否聚焦 */
 const isFocus = computed(() => statusStore.focus);
 const blurOnFocus = computed(() => store.stylesOption.searchbar.options?.blurOnFocus);
@@ -23,7 +27,9 @@ const scaleOnFocus = computed(() => store.stylesOption.searchbar.options?.scaleO
 const maskType = computed(() => wallpaper.value.options?.maskType || 'color');
 const options = computed(() => wallpaper.value.options || {});
 
-const height = window.innerHeight + 'px';
+
+
+
 const createBackground = () => {
     const actions = {
         1: () => {

@@ -15,7 +15,8 @@ const useResize = () => {
     });
     return {
         resize,
-        windowHeight
+        windowHeight,
+        innerHeight
     }
 }
 

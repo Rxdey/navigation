@@ -26,7 +26,7 @@ import { ref, onMounted, computed, Ref, inject } from 'vue';
 import { SearchBar, Logo } from '@/container';
 import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
-import useResize from './useResize';
+import useResize from '@/hooks/useResize';
 import { Shortcut } from '@/store/types';
 
 const dely = 0.025;
