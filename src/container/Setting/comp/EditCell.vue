@@ -1,6 +1,6 @@
 <template>
     <div class="mb-24">
-        <div class="text-xs mb-16 text-#ccc">{{ title }}</div>
+        <div class="text-xs mb-16 text-white">{{ title }}</div>
         <slot></slot>
     </div>
 </template>

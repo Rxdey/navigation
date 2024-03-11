@@ -12,7 +12,7 @@ import { useVModel } from '@vueuse/core';
 
 type options = {
     label: string;
-    value: string;
+    value: string|number;
 };
 const props = withDefaults(defineProps<{
     modelValue?: any;

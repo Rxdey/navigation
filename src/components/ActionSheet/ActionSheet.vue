@@ -1,7 +1,7 @@
 <template>
     <Teleport to="#home">
         <TransitionGroup name="right-inout" tag="div" class="action-wrap absolute bottom-18% right-0 z-9 flex-col items-end gap-48" @enter="onEnter" @leave="onLeave">
-            <div class="action-item text-white h-90 relative right-0 flex-row items-center bg-black-50 w-50vw transition-50" v-for="(act, i) in actions" :class="{ 'action-animate': show }" :key="i" v-show="show" @click="onSelect(act, i)" :data-index="i" @transitionend="onClear" :style="{ scale: (i + 1) % 2 === 1 ? '1.2' : '1' }">
+            <div class="action-item text-white h-90 relative right-0 flex-row items-center bg-black-50 w-50vw transition-30" v-for="(act, i) in actions" :class="{ 'action-animate': show }" :key="i" v-show="show" @click="onSelect(act, i)" :data-index="i" @transitionend="onClear" :style="{ scale: (act.scale) ? '1.2' : '1' }">
                 <div class="flex-1 px-32 text-32">{{ act.name }}</div>
             </div>
         </TransitionGroup>
@@ -15,7 +15,7 @@ import useTransitionGroup from '@/hooks/useTransitionGroup';
 
 type Actions = {
     name: string;
-    subname?: string;
+    scale?: boolean;
     [key: string]: any;
 };
 

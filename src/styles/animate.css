@@ -177,7 +177,7 @@
 
 .flip-inout-enter-active,
 .flip-inout-leave-active {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s linear;
 }
 
 .flip-inout-enter-from,

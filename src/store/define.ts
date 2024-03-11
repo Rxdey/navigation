@@ -53,9 +53,18 @@ export const DEFAULT_OPTIONS: StylesOption = {
     },
     /** 快捷导航 */
     shortcut: {
+        options: {
+            /** 排列方式 1:grid 2: flex */
+            arrangement: 1
+        },
         styles: {
             userSelect: 'none',
             backgroundColor: 'rgba(237, 237, 237, .9)',
+            color: 'rgba(0,0,0,1)',
+            custom: {
+                gridCol: 4,
+                gap: '10px'
+            }
         }
     },
     /** 搜索引擎 */
@@ -63,6 +72,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
         styles: {
             userSelect: 'none',
             backgroundColor: 'rgba(237, 237, 237, .9)',
+            color: 'rgba(0,0,0,1)',
             custom: {
                 background: 'var(--color-primary)',
                 color: 'white'

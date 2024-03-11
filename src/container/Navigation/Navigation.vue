@@ -15,7 +15,7 @@
         </TransitionGroup>
 
         <!-- 快捷导航 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap grid grid-cols-4 gap-20 transition-30">
+        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap transition-30" :class="`shortcut-wrap-${store.stylesOption.shortcut?.options?.arrangement || 1}`">
             <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" :shadow="showMenu" />
         </TransitionGroup>
     </div>
@@ -144,6 +144,21 @@ onMounted(() => {
     left: calc(50% - var(--searchbar-width) / 2);
     font-size: 24px;
     top: 100%;
+}
+
+.shortcut-wrap {
+    gap: var(--shortcut-custom-gap);
+
+    &.shortcut-wrap-1 {
+        display: grid;
+        grid-template-columns: repeat(var(--shortcut-custom-gridCol), minmax(0, 1fr));
+
+    }
+
+    &.shortcut-wrap-2 {
+        display: flex;
+        flex-flow: row wrap;
+    }
 }
 
 .engine.active {

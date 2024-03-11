@@ -17,3 +17,7 @@ export const backgroundOptions = [
     { label: '在线图片', value: 'online', type: 2 },
     { label: '在线视频', value: 'video', type: 3 },
 ];
+export const arrangementOptions = [
+    { label: '格栅', value: 1 },
+    { label: '响应', value: 2 },
+];

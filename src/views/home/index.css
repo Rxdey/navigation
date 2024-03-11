@@ -4,12 +4,18 @@
 }
 
 .editor-background {
-  background: linear-gradient(-148deg,
+  /* background-image: var(--wallpaper-background-image);
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+  filter: blur(30px);
+  transform: scale(1.2); */
+  background: linear-gradient(-142deg,
       var(--color-ared) 30%,
       var(--color-dblue) 0,
-      var(--color-dblue) 70%,
+      var(--color-dblue) 80%,
       var(--color-ablue) 0);
-  background-repeat: repeat;
+  /* background-repeat: repeat; */
   /* background-image: linear-gradient(-135deg,
         var(--color-primary) 25%,
         #dfc9ff 0%,
@@ -19,6 +25,7 @@
         #dfc9ff 0%);
     background-size: 50px 50px;
     animation: progressMove 4s linear infinite; */
+  /* background-color: var(--color-dblue); */
 }
 
 @keyframes progressMove {

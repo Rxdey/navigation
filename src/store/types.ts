@@ -37,7 +37,7 @@ export type Styles = {
     custom?: {
         [key: string]: any
     },
-    [key: string]: string | Record<string, string | number> | undefined
+    [key: string]: any
 };
 /** 设置项暂时any占位 */
 export type Options = {
