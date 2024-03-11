@@ -22,12 +22,12 @@ export default defineConfig({
         "theme_color": "#000",
         icons: [
           {
-            "src": "/logo.svg",
+            "src": "./logo.svg",
             "sizes": "192x192",
             "type": "image/svg+xml"
           },
           {
-            "src": "/logo.svg",
+            "src": "./logo.svg",
             "sizes": "512x512",
             "type": "image/svg+xml"
           }

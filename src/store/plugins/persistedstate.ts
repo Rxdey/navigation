@@ -3,6 +3,7 @@ import { toRaw } from 'vue';
 import localforage from 'localforage';
 
 export function persistedstate({ store }: PiniaPluginContext) {
+  console.log(store);
   if (store.$id !== 'main') return;
   // 注册慢了
   localforage.getItem('mainStore').then((res: any) => {
