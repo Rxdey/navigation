@@ -15,8 +15,9 @@ onMounted(() => {
     console.log(res);
     if (res) {
       store.$patch(res);
-      loaded.value = true;
+      
     }
+    loaded.value = true;
   });
 })
 </script>
