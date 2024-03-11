@@ -21,16 +21,13 @@ const useStore = defineStore('main', {
         stylesOption: JSON.parse(JSON.stringify(DEFAULT_OPTIONS)),
         /** 快捷方式列表 */
         shortcutList: [
-            { title: 'bilibili', url: '' },
-            { title: 'Github', url: '' },
-            { title: '百度贴吧', url: '' },
-            { title: '知乎', url: '' },
-            { title: '煎蛋网', url: '' },
-            { title: '高德地图', url: '' },
-            { title: '京东', url: '' },
-            { title: '淘宝', url: '' },
-            { title: '千帆搜索', url: '' },
-            { title: '源仓库', url: '' },
+            { title: 'Github', url: 'https://github.com/' },
+            { title: '百度贴吧', url: 'https://tieba.baidu.com/' },
+            { title: '煎蛋网', url: 'https://i.jandan.net/pic' },
+            { title: '千帆搜索', url: 'https://pan.qianfan.app/' },
+            { title: 'Bilibili', url: 'https://m.bilibili.com/' },
+            { title: '源仓库', url: 'http://www.yckceo.com/' },
+            { title: 'Greasyfork', url: 'https://greasyfork.org/zh-CN' },
         ],
         engineList: [
             { title: '必应', url: 'https://www.bing.com/search?q=%s', id: '1' },

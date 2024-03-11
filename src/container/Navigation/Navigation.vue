@@ -16,7 +16,7 @@
 
         <!-- 快捷导航 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap transition-30" :class="`shortcut-wrap-${store.stylesOption.shortcut?.options?.arrangement || 1}`">
-            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" :shadow="showMenu" />
+            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" :shadow="showMenu" @click.stop="onJump(shortcut)"/>
         </TransitionGroup>
     </div>
 </template>
@@ -27,6 +27,7 @@ import { SearchBar, Logo } from '@/container';
 import { MenuCard } from '@/components';
 import useStore from '@/store/modules/useStore';
 import useResize from './useResize';
+import { Shortcut } from '@/store/types';
 
 const dely = 0.025;
 const showMenu: Ref<boolean> | undefined = inject('showMenu');
@@ -47,7 +48,10 @@ const realTop = computed(() => {
     // if (!store.stylesOption.wallpaper.styles?.top) return 0;
     return `${(parseInt(store.stylesOption.navigation.styles?.top || '0') / 100) * window.innerHeight}px`
 })
-
+const onJump = (data: Shortcut) => {
+    if(showMenu?.value) return;
+    window.location.href = data.url;
+};
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
 const lockEngine = () => {
     engineClick.value = true;

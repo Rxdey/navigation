@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import { registerSW } from 'virtual:pwa-register';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn'; // 导入本地化语言
 import pinia from '@/store';
@@ -16,6 +17,7 @@ import 'vant/es/dialog/style';
 import 'vant/es/notify/style';
 import 'vant/es/image-preview/style';
 
+registerSW({ immediate: true })
 
 localforage.config({
     driver: localforage.INDEXEDDB, // 选择存储引擎，如IndexedDB

@@ -15,6 +15,7 @@
       var(--color-dblue) 0,
       var(--color-dblue) 80%,
       var(--color-ablue) 0);
+
   /* background-repeat: repeat; */
   /* background-image: linear-gradient(-135deg,
         var(--color-primary) 25%,
@@ -26,6 +27,25 @@
     background-size: 50px 50px;
     animation: progressMove 4s linear infinite; */
   /* background-color: var(--color-dblue); */
+  &::before,
+  &::after {
+    content: 'SETTING';
+    position: absolute;
+    top: 40px;
+    left: 20%;
+    font-size: 100px;
+    color: white;
+    font-weight: bold;
+    transform: rotate(15deg);
+    /* text-shadow: 50px 50px #9b56fc; */
+  }
+
+  &::before {
+    font-size: 120px;
+    color: #9b56fc;
+    transform: rotate(20deg);
+    top: 70px;
+  }
 }
 
 @keyframes progressMove {
