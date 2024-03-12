@@ -1,15 +1,29 @@
 <template>
-    <div class="wallpaper transition-100 absolute overflow-hidden w-full" :class="{ focus: isFocus && blurOnFocus, scale: scaleOnFocus && isFocus, reflect: showMenu }">
-        <template v-if="options.video && videoSource">
-            <div class="relative wh-full select-none">
-                <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline @playing="onVideoPlaying" ref="vieoRef"></video>
+    <div class="wallpaper-wrap transition-100 absolute w-full" :class="{ focus: isFocus && blurOnFocus, scale: scaleOnFocus && isFocus }">
+        <div class="wallpaper-mask absolute wh-full top-0 left-0 z-5 transition-30" :class="[maskType, { 'rounded-48': showMenu }]"></div>
+        <div class="wallpaper wh-full overflow-hidden relative z-1" :class="{ 'rounded-48': showMenu }">
+            <template v-if="options.video && videoSource">
+                <div class="relative wh-full select-none">
+                    <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline @playing="onVideoPlaying" ref="vieoRef"></video>
+                </div>
+                <div class="absolute bottom-32 left-32 color-white text-40 z-10" @click="onMuted">
+                    <div class="i-mingcute:volume-line" v-if="!options.muted"></div>
+                    <div class="i-mingcute:volume-off-line" v-else></div>
+                </div>
+            </template>
+        </div>
+
+
+        <!-- 倒影 -->
+        <Transition name="fade">
+            <div class="reflect wallpaper wh-full rounded-48 overflow-hidden absolute top-101%" v-if="showMenu">
+                <template v-if="options.video && videoSource">
+                    <div class="relative wh-full select-none">
+                        <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline></video>
+                    </div>
+                </template>
             </div>
-            <div class="absolute bottom-32 left-32 color-white text-40 z-10" @click="onMuted">
-                <div class="i-mingcute:volume-line" v-if="!options.muted"></div>
-                <div class="i-mingcute:volume-off-line" v-else></div>
-            </div>
-        </template>
-        <div class="wallpaper-mask absolute wh-full top-0 left-0 z-5" :class="maskType"></div>
+        </Transition>
     </div>
 </template>
 
@@ -84,19 +98,13 @@ watch(() => [options.value.wallpaperType, options.value.file, options.value.onli
 </script>
 
 <style>
-.wallpaper {
-    /* top: calc(var(--wallpaper-custom-blur)*-1);
-    left: calc(var(--wallpaper-custom-blur)*-1);
-    bottom: calc(var(--wallpaper-custom-blur)*-1);
-    right: calc(var(--wallpaper-custom-blur)*-1); */
+.wallpaper-wrap {
     filter: blur(var(--wallpaper-custom-blur));
+    /* reflect属性卡顿 */
     /* -webkit-box-reflect: below 10px linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .7)); */
     height: v-bind(height);
 
-    &.reflect {
-        border-radius: 48px;
-        overflow: hidden;
-    }
+
 
     &.focus {
         filter: blur(2px);
@@ -107,6 +115,12 @@ watch(() => [options.value.wallpaperType, options.value.file, options.value.onli
         transform: scale(1.1);
     }
 
+    /* .wallpaper {
+        &.reflect {
+            border-radius: 48px;
+        }
+    } */
+
     .wallpaper-mask {
         &.radial {
             background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, var(--wallpaper-custom-mask)) 100%);
@@ -115,6 +129,11 @@ watch(() => [options.value.wallpaperType, options.value.file, options.value.onli
         &.color {
             background-color: rgba(0, 0, 0, var(--wallpaper-custom-mask))
         }
+    }
+
+    .reflect {
+        transform: rotateY(0deg) rotateX(180deg);
+        opacity: .3;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home h-screen relative overflow-hidden" id="home">
+  <div class="home h-screen relative" id="home">
     <!-- 编辑模式背景 -->
     <div class="editor-background wh-full absolute z-1" @click="hideMenu">
       <FBI />

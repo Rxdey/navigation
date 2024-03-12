@@ -1,6 +1,11 @@
 .home {
-  transform-style: preserve-3d;
+  /* transform-style: preserve-3d; */
   perspective: 2000px;
+  background: linear-gradient(-32deg,
+  var(--color-green) 15%,
+  var(--color-purple) 0,
+  var(--color-purple) 95%,
+  var(--color-yellow) 0);
 }
 
 .editor-background {
@@ -15,9 +20,14 @@
       var(--color-purple) 0,
       var(--color-purple) 95%,
       var(--color-yellow) 0);
-      background-repeat: repeat;
-  /* background-repeat: repeat; */
-  /* background-image: linear-gradient(-135deg,
+  /* background-repeat: repeat;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: translate3d(0, 0, -1000px) */
+    /* background-repeat: repeat; */
+    /* background-image: linear-gradient(-135deg,
         var(--color-primary) 25%,
         #dfc9ff 0%,
         #dfc9ff 50%,
@@ -26,7 +36,7 @@
         #dfc9ff 0%);
     background-size: 50px 50px;
     animation: progressMove 4s linear infinite; */
-  /* background-color: var(--color-dblue); */
+    /* background-color: var(--color-dblue); */
 }
 
 @keyframes progressMove {
