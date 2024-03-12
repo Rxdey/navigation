@@ -13,9 +13,10 @@ export const optionsOptions = [
     { label: '纯色', value: 'color' },
 ];
 export const backgroundOptions = [
-    { label: '本地图片', value: 'local', type: 1 },
+    { label: '本地(图片/视频)', value: 'local', type: 1 },
     { label: '在线图片', value: 'online', type: 2 },
-    { label: '在线视频', value: 'video', type: 3 },
+    { label: '网页地址', value: 'web', type: 3 },
+    { label: '在线视频', value: 'onlineVideo', type: 4 },
 ];
 export const arrangementOptions = [
     { label: '格栅', value: 1 },

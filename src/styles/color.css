@@ -2,13 +2,21 @@
     --color-primary: #a83a62;
     /* --color-primary: #9b56fc; */
     --color-success: #55c906;
-    --color-info: #1cb1f9;
+    /* --color-info: #1cb1f9; */
+    /* --color-info: #9b56fc; */
+    --color-info: #9b56fc;
+
     --color-warning: #ffb202;
     --color-danger: #ff4c51;
 
     --color-ared: #a83a62;
     --color-ablue: #282d55;
     --color-dblue: #21264c;
+
+    --color-purple: #75409A;
+    /* #9060d6 */
+    --color-green: #7dff00;
+    --color-yellow: #ffbe46;
 
     /* --color-ared: #cd5a85;
     --color-ablue: #282d55;

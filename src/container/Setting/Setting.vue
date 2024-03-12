@@ -28,10 +28,10 @@ const showPopup = ref(false);
 const active = ref(0);
 
 const actions = [
-    { name: '背景设置', action: EditWallpaper, scale: true },
+    { name: '背景設置', action: EditWallpaper, scale: true },
     { name: '搜索框', action: EditSearchBar },
-    { name: '导航设置', action: EditShortcut },
-    { name: '全局设置', action: EditGolbal, scale: true }
+    { name: '導航設置', action: EditShortcut },
+    { name: '全局設置', action: EditGolbal, scale: true }
 ];
 
 const onMenuShow = () => {

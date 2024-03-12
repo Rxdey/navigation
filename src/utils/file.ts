@@ -1,19 +1,22 @@
 // import Compressor from 'compressorjs';
 
-export const uploadFile = (): Promise<File> => {
+import axios from 'axios';
+
+export const uploadFile = (): Promise<{ type: string, file: File }> => {
     let input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/*';
+    input.accept = 'image/*,video/*';
     input.hidden = true;
     // document.body.appendChild(input);
     input.click();
     return new Promise((resolve, reject) => {
         input.onchange = (e: Event) => {
             const file = (e.target as HTMLInputElement).files![0];
-            if (!/^image/.test(file.type)) {
+            // console.log(file);
+            if (!/^[image|video]/.test(file.type)) {
                 reject(null);
             }
-            resolve(file);
+            resolve({ type: file.type.split('/')[0], file: file });
             input.onchange = null;
             // document.body.removeChild(input);
         }
@@ -90,3 +93,15 @@ export const fileToBlob = async (file: File) => {
 //         });
 //     });
 // };
+
+
+export const getFileType = async (url: string) => {
+    try {
+        const res = await axios.head(url);
+        console.log('Content-Type:', res.headers['content-type']);
+        return res.headers['content-type'];
+    } catch (error) {
+        console.error('判断文件类型失败')
+        return false;
+    }
+}

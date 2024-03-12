@@ -13,7 +13,7 @@
             <div class="p-32 bg-board">
                 <div class="flex-center">
                     <div class="mr-24">锁定比例</div>
-                    <van-switch v-model="lock" size="22px" style="--van-switch-width:2.2em" @change="onLock"/>
+                    <van-switch v-model="lock" size="22px" style="--van-switch-width:2.2em" @change="onLock" />
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ const onLock = (val: boolean) => {
 const onSave = () => {
     if (!cropper) return;
     const base64 = cropper.getCroppedCanvas().toDataURL('image/jpeg', .9);
-    emit('confirm', dataURLtoBlob(base64));
+    emit('confirm', 1, dataURLtoBlob(base64), false);
     showPopup.value = false;
 }
 

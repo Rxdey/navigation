@@ -4,12 +4,13 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 壁纸 */
     wallpaper: {
         options: {
-            imageUrl: '',
-            imageType: 2,
-            imageFile: null,
-            videoSource: '',
+            onlineUrl: '',
+            wallpaperType: 2,
+            file: null,
             // radial | color
             maskType: 'radial',
+            video: false,
+            muted: false,
         },
         styles: {
             background: {
@@ -28,14 +29,14 @@ export const DEFAULT_OPTIONS: StylesOption = {
     /** 导航含搜索栏 */
     navigation: {
         styles: {
-            top: '30%',
+            top: '40%',
         },
     },
     /** 搜索栏 */
     searchbar: {
         options: {
             isFocus: false,
-            blurOnFocus: true,
+            blurOnFocus: false,
             scaleOnFocus: true
         },
         styles: {

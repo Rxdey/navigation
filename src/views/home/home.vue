@@ -1,7 +1,9 @@
 <template>
   <div class="home h-screen relative overflow-hidden" id="home">
     <!-- 编辑模式背景 -->
-    <div class="editor-background wh-full absolute z-1" @click="hideMenu"></div>
+    <div class="editor-background wh-full absolute z-1" @click="hideMenu">
+      <FBI />
+    </div>
     <!-- 主界面 -->
     <div class="stage relative h-full z-2 " :class="{ moveanima: showMenu }" @click="onDrawerClick">
       <div class="relative h-full pixel-40 transition-50" :class="{ 'card-animate': showMenu }">
@@ -18,6 +20,8 @@ import { ref, onMounted, computed, watch, provide } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useStore from '@/store/modules/useStore';
 import { Wallpaper, Navigation, Setting } from '@/container';
+import { FBI } from '@/components';
+
 
 const store = useStore();
 const showMenu = ref(false);

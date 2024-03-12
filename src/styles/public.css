@@ -1,6 +1,12 @@
 @import url('./color.css');
 @import url('./theme.css');
 
+@font-face {
+    font-family: "MatissePro";
+    /* src: url('../assets/font/MS-PMincho-2.ttf') format("truetype"); */
+    src: url('../assets/font/FOT-MatissePro-B.otf') format("opentype");
+}
+
 /* 初始化及重置 */
 body {
     background: #f7f7f7;

@@ -41,14 +41,14 @@ export type Styles = {
 };
 /** 设置项暂时any占位 */
 export type Options = {
-    /** 图片类型 1:本地 2:网络, 3:视频 */
-    imageType?: 1 | 2 | 3;
-    /** 网络视频地址 */
-    videoSource?: string;
-    /** 在线壁纸 */
-    imageUrl?: string;
+    /** 壁纸类型 1:本地 2:在线壁纸, 3:网页地址 4: 在线视频 */
+    wallpaperType?: 1 | 2 | 3 | 4;
+    /** 是否视频 */
+    video?: boolean;
+    /** 在线地址 */
+    onlineUrl?: string;
     /** 本地图片文件 */
-    imageFile?: Blob | null;
+    file?: Blob | null;
     /** 遮罩类型 */
     maskType?: 'radial' | 'color';
 

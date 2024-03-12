@@ -6,4 +6,35 @@
     --van-divider-margin: 20px 0;
     --van-slider-active-background: var(--color-primary);
     --van-button-small-height: 50px;
+    /* dialog */
+    --van-dialog-radius: 16px
+}
+
+body {
+    .van-dialog {
+        .van-dialog__header {
+            color: var(--color-purple);
+        }
+    }
+    .van-dialog__footer {
+        padding: 24px;
+        gap: 20px;
+    }
+    .van-dialog__confirm, .van-dialog__cancel {
+        height: auto;
+        line-height: 1;
+        padding: 20px 32px;
+        border: 2px solid var(--color-purple);
+        color: var(--color-purple);
+        border-radius: 100px;
+        font-size: 28px;
+        flex: auto;
+        &::after {
+            content: unset;
+        }
+    }
+    .van-dialog__confirm, .van-dialog__confirm:active {
+        background-color: var(--color-purple);
+        color: #fff;
+    }
 }

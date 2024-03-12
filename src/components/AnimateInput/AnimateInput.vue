@@ -3,7 +3,7 @@
     <div class="transition-30 text-xs text-white mb-8 origin-top-left" :class="isFoucs && 'text-primary scale-90'">{{ title }}</div>
     <div class="flex-row transition-30 origin-left-center" :class="isFoucs ? 'scale-100' : 'scale-90'">
       <div class="relative flex-1">
-        <input type="text" class="border-none h-full outline-none w-full placeholder:(text-sm text-gray) bg-transparent" :placeholder="placeholder" @focus="onfoucs" @blur="onblur" v-model="value" @keydown.enter="onEnter">
+        <input type="text" class="text-white border-none h-full outline-none w-full placeholder:(text-sm text-gray) bg-transparent" :placeholder="placeholder" @focus="onfoucs" @blur="onblur" v-model="value" @keydown.enter="onEnter">
       </div>
       <Transition name="scale">
         <div v-show="showIcon">
