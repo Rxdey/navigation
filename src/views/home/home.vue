@@ -5,8 +5,8 @@
       <FBI />
     </div>
     <!-- 主界面 -->
-    <div class="stage relative h-full z-2 " :class="{ moveanima: showMenu }" @click="onDrawerClick">
-      <div class="relative h-full pixel-40 transition-50" :class="{ 'card-animate': showMenu }">
+    <div class="stage relative h-full z-2" :class="{ moveanima: showMenu }" @click="onDrawerClick">
+      <div class="relative h-full transition-50" :class="{ 'card-animate': showMenu }">
         <Setting @animate="onAnimate" v-if="showSetting" ref="setRef" />
         <Wallpaper />
         <Navigation />

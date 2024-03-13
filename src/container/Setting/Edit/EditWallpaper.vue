@@ -83,7 +83,7 @@ const changeWallpaper = (wallpaperType: number, data: Blob | string | null, vide
     store.UPDATE_STYLES(['wallpaper', 'options', 'file'], data);
     store.UPDATE_STYLES(['wallpaper', 'options', 'onlineUrl'], '');
   }
-  if ([2, 4].includes(wallpaperType)) {
+  if ([2, 3, 4].includes(wallpaperType)) {
     store.UPDATE_STYLES(['wallpaper', 'options', 'file'], null);
     store.UPDATE_STYLES(['wallpaper', 'options', 'onlineUrl'], data);
   }

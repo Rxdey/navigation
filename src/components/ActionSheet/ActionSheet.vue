@@ -48,8 +48,8 @@ const onSelect = (data: Actions, i: number) => {
     box-shadow: 0 0 0 6px #000;
     color: #fff;
     background-color: rgba(0,0,0,.9);
-    &:active {
-        border-color: var(--color-dblue);
+    &:active,&:hover {
+        border-color: var(--color-green);
         scale: 1.4 !important;
     }
 }

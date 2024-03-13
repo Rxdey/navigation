@@ -1,7 +1,8 @@
 <template>
-    <div class="wallpaper-wrap transition-100 absolute w-full" :class="{ focus: isFocus && blurOnFocus, scale: scaleOnFocus && isFocus }">
-        <div class="wallpaper-mask absolute wh-full top-0 left-0 z-5 transition-30" :class="[maskType, { 'rounded-48': showMenu }]"></div>
+    <div class="wallpaper-wrap transition-100 absolute w-full pixel-40" :class="{ focus: isFocus && blurOnFocus, scale: scaleOnFocus && isFocus, 'rounded-48': showMenu }">
+        <div class="wallpaper-mask absolute wh-full top-0 left-0 z-5 transition-30" :class="[maskType, { 'rounded-48': showMenu }]" v-if="options.wallpaperType !== 3"></div>
         <div class="wallpaper wh-full overflow-hidden relative z-1" :class="{ 'rounded-48': showMenu }">
+            <!-- 视频壁纸 -->
             <template v-if="options.video && videoSource">
                 <div class="relative wh-full select-none">
                     <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline @playing="onVideoPlaying" ref="vieoRef"></video>
@@ -11,19 +12,25 @@
                     <div class="i-mingcute:volume-off-line" v-else></div>
                 </div>
             </template>
+            <!-- 网页壁纸 -->
+            <template v-if="options.wallpaperType === 3">
+                <div>
+                    <iframe id="wallFrame" :src="options.onlineUrl" width="100%" :height="height" class="border-none outline-none overflow-hidden"></iframe>
+                </div>
+            </template>
         </div>
 
 
         <!-- 倒影 -->
-        <Transition name="fade">
-            <div class="reflect wallpaper wh-full rounded-48 overflow-hidden absolute top-101%" v-if="showMenu">
+        <!-- <Transition name="fade">
+            <div class="reflect wallpaper wh-full rounded-48 overflow-hidden absolute top-101% pointer-events-none" v-if="showMenu">
                 <template v-if="options.video && videoSource">
                     <div class="relative wh-full select-none">
                         <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline></video>
                     </div>
                 </template>
             </div>
-        </Transition>
+        </Transition> -->
     </div>
 </template>
 
@@ -70,7 +77,8 @@ const createBackground = () => {
             return;
         },
         3: () => {
-
+            // 清除原背景图
+            store.UPDATE_STYLES(['wallpaper', 'styles', 'background', 'image'], '');
         },
         4: () => {
             // 在线视频

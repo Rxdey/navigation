@@ -54,7 +54,8 @@
   transform: translate3d(0, 0, 0) rotateY(0);
 
   &.moveanima {
-    transform: translate3d(-30%, 0, -550px) rotateX(15deg) rotateY(50deg) rotateZ(-10deg)
+    transform: translate3d(-30%, 0, -550px) rotateX(15deg) rotateY(50deg) rotateZ(-10deg);
+    border-radius: 48px;
   }
 }
 
