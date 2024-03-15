@@ -23,7 +23,7 @@
       <AutoSlider v-model="editForm.styles.custom.blur" :min="0" :max="30" :step="1" unit="px" />
     </EditCell>
     <EditCell title="背景颜色" class="mb-24">
-      <ColorPicker v-if="editForm.styles.background.color" v-model="editForm.styles.background.color" />
+      <ColorPicker v-model="editForm.styles.background.color" />
     </EditCell>
     <EditCell title="修改壁纸(在线类型需要手动提交)" class="mb-0">
       <div>

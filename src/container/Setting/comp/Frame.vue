@@ -16,9 +16,9 @@ const props = defineProps<{ title?: string }>();
 .frame {
     /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
     background: linear-gradient(45deg,
-      var(--color-dblue) 63%,
-      var(--color-ablue) 0%,
-      var(--color-ablue) 100%,
-      var(--color-ablue) 0%);
+      var(--color-ablue) 63%,
+      var(--color-dblue) 0%,
+      var(--color-dblue) 100%,
+      var(--color-dblue) 0%);
 }
 </style>

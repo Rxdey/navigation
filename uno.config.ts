@@ -29,7 +29,8 @@ export default defineConfig({
             'wh-full': 'w-full h-full',
             'cover-image': 'w-full h-full object-cover',
             'contain-image': 'w-full h-full object-contain',
-            'slider-button': 'wh-40 bg-white border-5 border-solid border-primary rounded-full'
+            'slider-button': 'wh-40 bg-white border-5 border-solid border-primary rounded-full',
+            'editor-wrap': 'absolute top-0 left-0 z-10 wh-full'
         },
     ],
     rules: [

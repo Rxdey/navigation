@@ -8,7 +8,7 @@
         <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" ref="searchRef" />
         <!-- 搜索引擎 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10 transition-30" :class="[hideEngine ? 'invisible' : 'visible']">
-            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)" :shadow="showMenu">
+            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)" :shadow="showMenu" :data="engine">
                 <span v-if="engine.title">{{ engine.title }}</span>
                 <div v-else class="i-mingcute:add-fill"></div>
             </MenuCard>
@@ -16,7 +16,7 @@
 
         <!-- 快捷导航 -->
         <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap transition-30" :class="`shortcut-wrap-${store.stylesOption.shortcut?.options?.arrangement || 1}`">
-            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" :name="shortcut.title" v-show="visible" :shadow="showMenu" @click.stop="onJump(shortcut)"/>
+            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" v-show="visible" :shadow="showMenu" @click.stop="onJump(shortcut)" :data="shortcut"/>
         </TransitionGroup>
     </div>
 </template>

@@ -82,20 +82,15 @@ export type GlobalOptions = {
 
 /** 快捷导航 */
 export type Shortcut = {
-    title: string;
-    url: string;
-    icon?: string;
-    color?: string;
-    background?: string;
-    sort?: number;
-};
-/** 搜索引擎 */
-export type Engine = {
     id: string;
     title: string;
     url: string;
     icon?: string;
+    /** 文本颜色 */
     color?: string;
+    /** 背景颜色 */
     background?: string;
     sort?: number;
 };
+/** 搜索引擎 */
+// export type Engine = { id: string } & Shortcut;

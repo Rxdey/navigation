@@ -29,7 +29,9 @@ const show = useVModel(props, 'modelValue', emit);
 const { onEnter, onLeave, onClear } = useTransitionGroup(0.05, props.actions.length);
 
 const onSelect = (data: Actions, i: number) => {
-    emit('select', data, i);
+    setTimeout(() => {
+        emit('select', data, i);
+    }, 200);
 };
 
 </script>
@@ -48,8 +50,8 @@ const onSelect = (data: Actions, i: number) => {
     box-shadow: 0 0 0 6px #000;
     color: #fff;
     background-color: rgba(0,0,0,.9);
-    &:active,&:hover {
-        border-color: var(--color-green);
+    &:active {
+        /* border-color: var(--color-green); */
         scale: 1.4 !important;
     }
 }

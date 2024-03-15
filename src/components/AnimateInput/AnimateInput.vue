@@ -1,15 +1,16 @@
 <template>
-  <div class="AnimateInput relative py-16" :class="{ focus: isFoucs }">
-    <div class="transition-30 text-xs text-white mb-8 origin-top-left" :class="isFoucs && 'text-primary scale-90'">{{ title }}</div>
-    <div class="flex-row transition-30 origin-left-center" :class="isFoucs ? 'scale-100' : 'scale-90'">
-      <div class="relative flex-1">
-        <input type="text" class="text-white border-none h-full outline-none w-full placeholder:(text-sm text-gray) bg-transparent" :placeholder="placeholder" @focus="onfoucs" @blur="onblur" v-model="value" @keydown.enter="onEnter">
+  <div class="relative leading-[1] mt-24">
+    <div class="animate-input-wrap flex-row px-8 pb-20 pt-28 relative text-white border-b-[--color-primary] border-b-solid bg-transparent border-b-5 text-xs" :class="{ focus: isFoucs }">
+      <div class="absolute left-8 transition-30 pointer-events-none" :class="(isFoucs || value) ? 'top-0 -translate-y-1/5 text-xs text-primary' : 'top-1/2 -translate-y-1/2'">
+        {{ title }}
       </div>
-      <Transition name="scale">
-        <div v-show="showIcon">
-          <slot name="icon"></slot>
-        </div>
-      </Transition>
+      <div class="flex-1">
+        <input type="text" class="border-none outline-none w-full bg-transparent" @focus="onfoucs" @blur="onblur" v-model="value" @keydown.enter="onEnter">
+      </div>
+
+      <div v-show="showIcon">
+        <slot name="icon"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -48,29 +49,5 @@ const onblur = () => {
 </script>
 
 <style scoped>
-.AnimateInput {
-
-  &::before,
-  &::after {
-    content: '';
-    z-index: 1;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #ededed;
-  }
-
-  &::after {
-    z-index: 2;
-    width: 0;
-    transition: all .3s;
-    background-color: var(--color-primary);
-  }
-
-  &.focus::after {
-    width: 100%;
-  }
-}
+.animate-input-wrap {}
 </style>

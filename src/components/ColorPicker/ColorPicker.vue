@@ -22,7 +22,7 @@ import type { ColorInput } from '@ctrl/tinycolor';
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps<{
-    modelValue: string;
+    modelValue?: string;
 }>();
 const value = useVModel(props, 'modelValue', emit);
 const colors = ref<ColorInput>('');
@@ -36,10 +36,10 @@ const onChange = (val: ColorPickerValue) => {
     value.value = `rgba(${r},${g},${b},${a})`;
 };
 watch(() => value.value, val => {
-    colors.value = val;
+    colors.value = val || '';
 });
 onMounted(() => {
-    colors.value = props.modelValue;
+    colors.value = props.modelValue || '';
 })
 </script>
 

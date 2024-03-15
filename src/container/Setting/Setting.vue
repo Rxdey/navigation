@@ -7,9 +7,19 @@
     <!-- 分类编辑 -->
     <Teleport to="#home">
         <Transition name="flip-inout">
-            <div class="editor absolute top-0 left-0 z-10 wh-full" @click.stop="showPopup = false" v-if="showPopup">
-                <div class="w-70% absolute right-0 bottom-5%">
-                    <Component :is="actions[active].action" @close="onClose" />
+            <div class="editor-wrap" @click.stop="showPopup = false" v-if="showPopup">
+                <div class="w-75% absolute right-0 bottom-5%">
+                    <Component :is="actions[active].action" @add="onAdd" />
+                </div>
+            </div>
+        </Transition>
+    </Teleport>
+    <!-- 添加 -->
+    <Teleport to="#home">
+        <Transition name="flip-inout">
+            <div class="editor-wrap" @click.stop="closeAdd" v-if="showAdd">
+                <div class="w-75% absolute right-0 bottom-5%">
+                    <AddShortcut :type="addType"/>
                 </div>
             </div>
         </Transition>
@@ -19,18 +29,22 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch, inject } from 'vue';
 import { ActionSheet } from '@/components';
-import { EditWallpaper, EditGolbal, EditShortcut, EditSearchBar } from './Edit';
+import { EditWallpaper, EditGolbal, EditShortcut, EditSearchBar, AddShortcut } from './Edit';
+import useStatus from '@/store/modules/useStatus';
 
+const statusStore = useStatus();
 const emit = defineEmits(['animate']);
 
 const showAction = ref(false);
 const showPopup = ref(false);
+const showAdd = computed(() => statusStore.showAddMenu);
 const active = ref(0);
+const addType = ref('');
 
 const actions = [
     { name: '背景設置', action: EditWallpaper, scale: true },
     { name: '搜索框', action: EditSearchBar },
-    { name: '導航設置', action: EditShortcut },
+    { name: '導航&引擎', action: EditShortcut },
     { name: '全局設置', action: EditGolbal, scale: true }
 ];
 
@@ -44,15 +58,17 @@ const onSelect = (act: typeof actions[number], index: number) => {
     showPopup.value = true;
     // emit('animate', true);
 };
-const onClose = () => {
+
+const onAdd = (type: any) => {
+    console.log(type);
+    addType.value = type;
     showPopup.value = false;
+    statusStore.UPDATE_SHOW_ADD_MENU(true);
 };
-onMounted(() => {
-    // document.body.addEventListener('click', () => {
-    //     emit('animate', false);
-    //     showPopup.value = false;
-    // })
-});
+
+const closeAdd = () => {
+    statusStore.UPDATE_SHOW_ADD_MENU(false);
+}
 
 defineExpose({
     close() {
