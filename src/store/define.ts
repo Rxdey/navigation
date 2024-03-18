@@ -1,4 +1,4 @@
-import type { StylesOption, Shortcut } from './types';
+import type { StylesOption, Shortcut, GlobalType } from './types';
 
 /** 基础样式配置 */
 export const DEFAULT_OPTIONS: StylesOption = {
@@ -116,5 +116,12 @@ export const DEFAULT_ENGINE_LIST: Shortcut[] = [
     { title: '搜狗', url: 'https://www.sogou.com/sogou?query=%s', id: 'jwn39jp0ouU3FGjGB6A8C', type: 'engine' },
 ];
 
+export const DEFAULT_GLOBAL: GlobalType = {
+    sync: {
+        server: '',
+        username: '',
+        password: '',
+    }
+};
 /** 禁止操作 */
 export const FIXED_ENGINE_IDS = ['JuZRYJctZYtEJE5xw7fb5'];

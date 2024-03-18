@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import type { StylesOption, Shortcut, Keys, Options, Styles } from '../types';
-import { DEFAULT_OPTIONS, DEFAULT_SHORTCUT_LIST, DEFAULT_ENGINE_LIST, FIXED_ENGINE_IDS } from '../define';
+import type { StylesOption, Shortcut, GlobalType } from '../types';
+import { DEFAULT_OPTIONS, DEFAULT_SHORTCUT_LIST, DEFAULT_ENGINE_LIST, DEFAULT_GLOBAL, FIXED_ENGINE_IDS } from '../define';
 import { options2CSSVar } from '@/store/tool';
 import localforage from 'localforage';
 
 
 type State = {
+    global: GlobalType,
     stylesOption: StylesOption;
     shortcutList: Shortcut[],
     engineList: Shortcut[],
@@ -14,6 +15,7 @@ type State = {
 
 const useStore = defineStore('main', {
     state: (): State => ({
+        global: JSON.parse(JSON.stringify(DEFAULT_GLOBAL)),
         /** 模块基础样式配置 */
         stylesOption: JSON.parse(JSON.stringify(DEFAULT_OPTIONS)),
         /** 快捷方式列表 */
@@ -85,6 +87,7 @@ const useStore = defineStore('main', {
             this.stylesOption = JSON.parse(JSON.stringify(DEFAULT_OPTIONS));
             this.shortcutList = JSON.parse(JSON.stringify(DEFAULT_SHORTCUT_LIST));
             this.engineList = JSON.parse(JSON.stringify(DEFAULT_ENGINE_LIST));
+            this.global = JSON.parse(JSON.stringify(DEFAULT_GLOBAL));
             this.engine = FIXED_ENGINE_IDS[0];
             localforage.clear();
         }

@@ -4,7 +4,7 @@
             <MenuCard class="shortcut inline-block" :data="form" :small="form.type === 'engine'"/>
         </div>
         <EditCell>
-            <AnimateInput v-model="form.title" title="网站名称" placeholder="输入网站名称" />
+            <AnimateInput v-model="form.title" title="网站名称"/>
         </EditCell>
         <EditCell class="mb-48">
             <AnimateInput v-model="form.url" title="网站网址" />
