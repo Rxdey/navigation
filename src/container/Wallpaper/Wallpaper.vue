@@ -7,10 +7,10 @@
                 <div class="relative wh-full select-none">
                     <video :src="videoSource" class="wh-full" :style="{ objectFit: wallpaper.styles?.background?.size }" loop autoplay name="media" muted playsinline @playing="onVideoPlaying" ref="vieoRef"></video>
                 </div>
-                <div class="absolute bottom-32 left-32 color-white text-40 z-10" @click="onMuted">
+                <!-- <div class="absolute bottom-32 left-32 color-white text-40 z-10" @click="onMuted">
                     <div class="i-mingcute:volume-line" v-if="!options.muted"></div>
                     <div class="i-mingcute:volume-off-line" v-else></div>
-                </div>
+                </div> -->
             </template>
             <!-- 网页壁纸 -->
             <template v-if="options.wallpaperType === 3">
@@ -91,7 +91,7 @@ const createBackground = () => {
 const onVideoPlaying = (e: Event) => {
     // console.log(e);
     const video = e.target as HTMLVideoElement;
-    if (!options.value.muted) video.muted = false;
+    if (options.value.muted) video.muted = true;
 };
 const onMuted = () => {
     store.UPDATE_STYLES(['wallpaper', 'options', 'muted'], !options.value.muted);
