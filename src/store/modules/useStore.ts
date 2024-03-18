@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { StylesOption, Shortcut, Keys, Options, Styles } from '../types';
-import { DEFAULT_OPTIONS, DEFAULT_SHORTCUT_LIST, DEFAULT_ENGINE_LIST } from '../define';
+import { DEFAULT_OPTIONS, DEFAULT_SHORTCUT_LIST, DEFAULT_ENGINE_LIST, FIXED_ENGINE_IDS } from '../define';
 import { options2CSSVar } from '@/store/tool';
 import localforage from 'localforage';
 
@@ -19,7 +19,7 @@ const useStore = defineStore('main', {
         /** 快捷方式列表 */
         shortcutList: JSON.parse(JSON.stringify(DEFAULT_SHORTCUT_LIST)),
         engineList: JSON.parse(JSON.stringify(DEFAULT_ENGINE_LIST)),
-        engine: '1'
+        engine: 'JuZRYJctZYtEJE5xw7fb5'
     }),
     actions: {
         /** 更新样式 */
@@ -40,21 +40,53 @@ const useStore = defineStore('main', {
         },
         /** 新增导航 */
         ADD_SHORTCUT(data: Shortcut) {
-            this.shortcutList.push(data);
+            const { id } = data;
+            const index = this.shortcutList.findIndex(e => e.id === id)
+            if (index >= 0) {
+                this.shortcutList[index] = data;
+            } else {
+                this.shortcutList.push(data);
+            }
+
         },
         /** 删除导航 */
         DELETE_SHORTCUT_BY_ID(id: string) {
             // this.shortcutList = this.shortcutList.filter(e => e.id !== id);
             const index = this.shortcutList.findIndex(e => e.id === id);
-            if (index < 0) return;
-            this.shortcutList.splice(index, 1);
+            if (index >= 0) {
+                this.shortcutList.splice(index, 1);
+            }
+            return index;
+        },
+        /** 新增引擎 */
+        ADD_ENGINE(data: Shortcut) {
+            const { id } = data;
+            const index = this.engineList.findIndex(e => e.id === id)
+            if (index >= 0) {
+                this.engineList[index] = data;
+            } else {
+                this.engineList.push(data);
+            }
+        },
+        /** 删除引擎 */
+        DELETE_ENGINE_BY_ID(id: string) {
+            // this.shortcutList = this.shortcutList.filter(e => e.id !== id);
+            const index = this.engineList.findIndex(e => e.id === id);
+            if (index >= 0) {
+                this.engineList.splice(index, 1);
+                // 如删除默认引擎
+                if (id === this.engine) {
+                    this.engine = this.engineList[0].id;
+                }
+            }
+            return index;
         },
         RESET_STORE() {
-            localforage.clear();
             this.stylesOption = JSON.parse(JSON.stringify(DEFAULT_OPTIONS));
             this.shortcutList = JSON.parse(JSON.stringify(DEFAULT_SHORTCUT_LIST));
             this.engineList = JSON.parse(JSON.stringify(DEFAULT_ENGINE_LIST));
-            this.engine = '1';
+            this.engine = FIXED_ENGINE_IDS[0];
+            localforage.clear();
         }
     },
     getters: {

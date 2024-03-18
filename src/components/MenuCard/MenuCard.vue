@@ -17,13 +17,15 @@ import { showConfirmDialog, showToast } from 'vant';
 import useStore from '@/store/modules/useStore';
 import useStatus from '@/store/modules/useStatus';
 import { toRaw } from 'vue';
+import { FIXED_ENGINE_IDS } from '@/store/define';
 
+const emit = defineEmits(['edit']);
 const statusStore = useStatus();
 const store = useStore();
 type PropsType = {
     small?: boolean;
     shadow?: boolean;
-    data?: Shortcut;
+    data: Shortcut;
 };
 const actions = [
     { name: '编辑', type: 1 },
@@ -52,14 +54,20 @@ const onSelect = ({ name, type }: { name: string, type: number }) => {
             message: '删除后不可恢复，确定要删除吗?',
             confirmButtonText: '删除'
         }).then(() => {
-            if (props.data) store.DELETE_SHORTCUT_BY_ID(props.data.id);
-            showToast('已删除');
+            if (props.data) {
+                const ACTION_TYPE = props.data.type === 'shortcut' ? 'DELETE_SHORTCUT_BY_ID' : 'DELETE_ENGINE_BY_ID';
+                const index: number = store[ACTION_TYPE](props.data.id);
+                if (index >= 0) {
+                    showToast('已删除');
+                } else {
+                    showToast('未查询到结果');
+                }
+            }
         }).catch(() => { });
         return;
     }
     if (type === 1) {
-        if (!props.data) return;
-        // console.log(props.data);
+        console.log(props.data);
         statusStore.UPDATE_EDIT_DATA(toRaw(props.data));
         nextTick(() => {
             statusStore.UPDATE_SHOW_ADD_MENU(true);
@@ -67,7 +75,12 @@ const onSelect = ({ name, type }: { name: string, type: number }) => {
     }
 }
 const onEdit = () => {
-    console.log('edit');
+    if (!props.data.url) return;
+    emit('edit');
+    if (FIXED_ENGINE_IDS.includes(props.data.id)) {
+        showToast('默认项不允许修改');
+        return;
+    }
     show.value = true;
 }
 </script>

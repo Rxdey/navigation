@@ -50,7 +50,7 @@
 }
 
 .stage {
-  transition: all .7s;
+  transition: all .5s;
   transform: translate3d(0, 0, 0) rotateY(0);
 
   &.moveanima {
@@ -62,7 +62,7 @@
 .card-animate {
   border-radius: 48px;
   box-shadow: -20px 20px 32px 0 rgba(0, 0, 0, .5);
-  animation: custom-move 30s ease-in-out 0s alternate infinite none;
+  animation: custom-move 30s linear 0s alternate infinite none;
   transform: translate3d(0%, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 

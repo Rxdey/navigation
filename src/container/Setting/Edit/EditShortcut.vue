@@ -12,8 +12,14 @@
     <EditCell :title="`导航间距(${form.shortcut.styles.custom.gap})`" class="mb-32">
       <AutoSlider :min="0" :max="50" :step="1" v-model="form.shortcut.styles.custom.gap" unit="px" />
     </EditCell>
+
+    <EditCell :title="`字体大小(${form.shortcut.styles.fontSize})`" class="mb-48">
+      <AutoSlider :min="10" :max="48" :step="1" v-model="form.shortcut.styles.fontSize" unit="px" />
+    </EditCell>
+
     <EditCell title="整体背景颜色(含透明度)" class="mb-32">
-      <div class="text-white flex-row gap-20 text-xs">
+      <p class="text-gray text-xs mb-16">Tip:整体默认颜色，不影响单独配置</p>
+      <div class="text-white flex-row gap-20 text-xs items-center">
         <div class="flex-center gap-20">
           <label>导航</label>
           <ColorPicker v-model="form.shortcut.styles.backgroundColor" />
@@ -22,12 +28,27 @@
           <label>搜索引擎</label>
           <ColorPicker v-model="form.engine.styles.backgroundColor" />
         </div>
+        <div class="inline-block text-gray text-xs px-16" @click="resetColor">重置颜色</div>
       </div>
     </EditCell>
+
+    <EditCell title="搜索引擎激活颜色" v-if="form.engine.styles.custom">
+      <div class="text-white flex-row gap-20 text-xs">
+        <div class="flex-center gap-20">
+          <label>文本</label>
+          <ColorPicker v-model="form.engine.styles.custom.color" />
+        </div>
+        <div class="flex-center gap-20">
+          <label>背景</label>
+          <ColorPicker v-model="form.engine.styles.custom.background" />
+        </div>
+      </div>
+    </EditCell>
+
     <EditCell title="其它设置" class="mb-32">
       <div class="flex-row gap-20">
         <van-button round type="primary" size="small" icon="plus" @click="onAdd('shortcut')">添加导航</van-button>
-      <van-button round type="primary" size="small" icon="plus" @click="onAdd('engine')">添加引擎</van-button>
+        <van-button round type="primary" size="small" icon="plus" @click="onAdd('engine')">添加引擎</van-button>
       </div>
     </EditCell>
   </Frame>
@@ -50,6 +71,10 @@ const onAdd = (type: string) => {
   emit('add', type)
 }
 
+const resetColor = () => {
+  form.value.shortcut.styles!.backgroundColor = 'rgba(237, 237, 237, .9)';
+  form.value.engine.styles!.backgroundColor = 'rgba(237, 237, 237, .9)';
+};
 onMounted(() => {
   form.value = {
     shortcut: store.stylesOption.shortcut,

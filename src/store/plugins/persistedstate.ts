@@ -13,7 +13,6 @@ export function persistedstate({ store }: PiniaPluginContext) {
 
   store.$subscribe((args, state) => {
     const tempOpt = toRaw(state);
-    console.log(tempOpt);
     localforage.setItem('mainStore', tempOpt);
   });
 }

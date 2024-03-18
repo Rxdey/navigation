@@ -22,8 +22,8 @@ export const mergeObjects = (obj1: Record<string, any>, obj2: Record<string, any
     const merged = { ...obj2 };
     for (let key in obj1) {
         if (obj1.hasOwnProperty(key)) {
-            if (typeof obj1[key] === 'object' && !Array.isArray(obj1[key]) &&
-                typeof obj2[key] === 'object' && !Array.isArray(obj2[key])) {
+            if (Object.prototype.toString.call(obj1[key]) === '[object Object]' && Object.prototype.toString.call(obj2[key])) {
+            // if (typeof obj1[key] === 'object' && !Array.isArray(obj1[key]) && typeof obj2[key] === 'object' && !Array.isArray(obj2[key])) {
                 merged[key] = mergeObjects(obj1[key], obj2[key]);
             } else {
                 merged[key] = obj1[key];

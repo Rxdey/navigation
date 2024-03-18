@@ -1,7 +1,7 @@
 <template>
-    <Frame :title="`添加${title}`" @click.stop>
+    <Frame :title="`${isEdit ? '编辑' : '添加'}${title}`" @click.stop>
         <div class="preview">
-            <MenuCard class="shortcut inline-block" :data="form" />
+            <MenuCard class="shortcut inline-block" :data="form" :small="form.type === 'engine'"/>
         </div>
         <EditCell>
             <AnimateInput v-model="form.title" title="网站名称" placeholder="输入网站名称" />
@@ -23,7 +23,7 @@
             </div>
         </EditCell>
 
-        <EditCell class="mt-48">
+        <EditCell class="mt-48" v-if="!isEdit">
             <div class="flex-row gap-20">
                 <van-button round type="primary" size="small" @click="onSave">立即保存</van-button>
             </div>
@@ -46,15 +46,20 @@ import useStatus from '@/store/modules/useStatus';
 const statusStore = useStatus();
 const store = useStore();
 const props = defineProps<{
-    type?: string
+    type: 'engine' | 'shortcut'
 }>();
-const title = computed(() => props.type === 'engine' ? '引擎' : '导航');
+const title = computed(() => form.value.type === 'engine' ? '引擎' : '导航');
+const isEdit = computed(() => !!statusStore.editData);
 
 const form = ref<Shortcut>({
     id: nanoid(),
     title: '',
-    url: ''
+    url: '',
+    type: props.type,
+    background: 'rgba(237, 237, 237, .9)',
+    color: 'rgba(0,0,0,1)',
 });
+
 const onSave = () => {
     if (!form.value.title) {
         showToast('请输入网站名称');
@@ -64,17 +69,22 @@ const onSave = () => {
         showToast('请输入网站网址');
         return;
     };
-    store.ADD_SHORTCUT(toRaw(form.value));
+    const ACTION_TYPE = form.value.type === 'shortcut' ? 'ADD_SHORTCUT' : 'ADD_ENGINE';
+    store[ACTION_TYPE](toRaw(form.value));
     form.value = {
         id: nanoid(),
         title: '',
-        url: ''
+        url: '',
+        type: props.type
     }
 };
 
 onMounted(() => {
     if (statusStore.editData) {
-        form.value = statusStore.editData;
+        form.value = {
+            ...form.value,
+            ...statusStore.editData,
+        };
     }
 });
 </script>

@@ -68,6 +68,7 @@ export const DEFAULT_OPTIONS: StylesOption = {
                 gridCol: 4,
                 gap: '10px',
             },
+            fontSize: '12px'
         },
     },
     /** 搜索引擎 */
@@ -97,19 +98,23 @@ export const DEFAULT_OPTIONS: StylesOption = {
 };
 
 export const DEFAULT_SHORTCUT_LIST: Shortcut[] = [
-    { title: 'Github', url: 'https://github.com/', id: 'C1jHSf40ojn3OY1DFkDih' },
-    { title: '百度贴吧', url: 'https://tieba.baidu.com/', id: 'ic-qwlIWaTNZDEoCKLZR9' },
-    { title: '煎蛋网', url: 'https://i.jandan.net/pic', id: 'B3R2rGgXCsyV384pVGwuE' },
-    { title: '千帆搜索', url: 'https://pan.qianfan.app/', id: 'YFQxIz0PM3PowcbGM1I9x' },
-    { title: 'Bilibili', url: 'https://m.bilibili.com/', id: 'l6-cmV1r6kWMksstD6vhb' },
-    { title: '源仓库', url: 'http://www.yckceo.com/', id: '33TFsqjjgJhGlVwIeIdCQ' },
-    { title: 'Greasyfork', url: 'https://greasyfork.org/zh-CN', id: '90MNL-TaMg7BgoPccf-RY' },
+    { title: 'Github', url: 'https://github.com/', id: 'C1jHSf40ojn3OY1DFkDih', type: 'shortcut' },
+    { title: '百度贴吧', url: 'https://tieba.baidu.com/', id: 'ic-qwlIWaTNZDEoCKLZR9', type: 'shortcut' },
+    { title: '煎蛋网', url: 'https://i.jandan.net/pic', id: 'B3R2rGgXCsyV384pVGwuE', type: 'shortcut' },
+    { title: '千帆搜索', url: 'https://pan.qianfan.app/', id: 'YFQxIz0PM3PowcbGM1I9x', type: 'shortcut' },
+    { title: 'Bilibili', url: 'https://m.bilibili.com/', id: 'l6-cmV1r6kWMksstD6vhb', type: 'shortcut' },
+    { title: '源仓库', url: 'http://www.yckceo.com/', id: '33TFsqjjgJhGlVwIeIdCQ', type: 'shortcut' },
+    { title: 'Greasyfork', url: 'https://greasyfork.org/zh-CN', id: '90MNL-TaMg7BgoPccf-RY', type: 'shortcut' },
 ];
 export const DEFAULT_ENGINE_LIST: Shortcut[] = [
-    { title: '必应', url: 'https://www.bing.com/search?q=%s', id: 'ci59QVBrCaw6CWwzN6JiJ' },
-    { title: '必应CN', url: 'https://cn.bing.com/search?q=%s', id: 'JuZRYJctZYtEJE5xw7fb5' },
-    { title: '谷歌', url: 'https://www.google.com/search?q=%s', id: 'isLI_ZYAZEXh77SBaK2z3' },
-    { title: '百度', url: 'https://m.baidu.com/s?word=%s', id: 'V4MTp1YxDlIM9sUEqPjXg' },
-    { title: 'Yindex', url: 'https://yandex.com/search/?text=%s', id: '8f8i7CGF3yAavzTonGc7J' },
-    { title: '搜狗', url: 'https://www.sogou.com/sogou?query=%s', id: 'jwn39jp0ouU3FGjGB6A8C' },
+    { title: '默认', url: 'https://cn.bing.com/search?q=%s', id: 'JuZRYJctZYtEJE5xw7fb5', type: 'engine' },
+    { title: '必应', url: 'https://www.bing.com/search?q=%s', id: 'ci59QVBrCaw6CWwzN6JiJ', type: 'engine' },
+
+    { title: '谷歌', url: 'https://www.google.com/search?q=%s', id: 'isLI_ZYAZEXh77SBaK2z3', type: 'engine' },
+    { title: '百度', url: 'https://m.baidu.com/s?word=%s', id: 'V4MTp1YxDlIM9sUEqPjXg', type: 'engine' },
+    { title: 'Yindex', url: 'https://yandex.com/search/?text=%s', id: '8f8i7CGF3yAavzTonGc7J', type: 'engine' },
+    { title: '搜狗', url: 'https://www.sogou.com/sogou?query=%s', id: 'jwn39jp0ouU3FGjGB6A8C', type: 'engine' },
 ];
+
+/** 禁止操作 */
+export const FIXED_ENGINE_IDS = ['JuZRYJctZYtEJE5xw7fb5'];

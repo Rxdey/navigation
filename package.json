@@ -28,7 +28,8 @@
     "vant": "^4.8.5",
     "vue": "^3.4.19",
     "vue-lazyload": "^3.0.0",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "webdav": "^5.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",

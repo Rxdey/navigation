@@ -1,5 +1,5 @@
 <template>
-    <div class="frame transition-30 mx-16 min-h-50vh p-32 bg-ablue shadow-lg shadow-black" @click.stop>
+    <div class="frame transition-30 mx-16 min-h-50vh p-32 shadow-lg shadow-black" @click.stop>
         <slot name="title">
             <div class="text-white font-bold text-sm mb-24" v-if="title">{{ title }}</div>
         </slot>

@@ -1,22 +1,78 @@
 <template>
-    <div class="navigation w-full absolute" ref="navigationRef" :class="{
-        animate: resize && offset && !visible, splitWrap: showMenu
-    }">
+    <div
+        class="navigation w-full absolute"
+        ref="navigationRef"
+        :class="{
+            animate: resize && offset && !visible,
+            splitWrap: showMenu,
+        }"
+    >
         <!-- logo -->
         <Logo />
         <!-- 搜索框 -->
-        <SearchBar @focus="onfocus" @blur="onblur" @clear="lockEngine" ref="searchRef" />
+        <SearchBar
+            @focus="onfocus"
+            @blur="onblur"
+            @clear="lockEngine"
+            ref="searchRef"
+        />
         <!-- 搜索引擎 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="engine-wrap flex-row gap-10 transition-30" :class="[hideEngine ? 'invisible' : 'visible']">
-            <MenuCard class="engine" :class="{ active: activeEngine === i }" v-for="(engine, i) in engineList" :key="i" v-show="!visible" :data-index="i" data-type="engine" small @click="onSelectEngine(i, engine)" :shadow="showMenu" :data="engine">
+        <TransitionGroup
+            name="fade-inout"
+            tag="div"
+            @enter="onEnter"
+            @leave="onLeave"
+            @before-enter="onBeforeEnter"
+            @after-enter="onAfterEnter"
+            class="engine-wrap flex-row gap-10 transition-30"
+            :class="[hideEngine ? 'invisible' : 'visible']"
+        >
+            <MenuCard
+                class="engine"
+                :class="{ active: activeEngine === i }"
+                v-for="(engine, i) in engineList"
+                :key="i"
+                v-show="!visible"
+                :data-index="i"
+                data-type="engine"
+                small
+                @click="onSelectEngine(i, engine)"
+                :shadow="showMenu"
+                :data="engine"
+                type="engine"
+                @edit="lockEngine"
+            >
                 <span v-if="engine.title">{{ engine.title }}</span>
-                <div v-else class="i-mingcute:add-fill"></div>
+                <div
+                    v-else
+                    class="i-mingcute:add-fill"
+                ></div>
             </MenuCard>
         </TransitionGroup>
 
         <!-- 快捷导航 -->
-        <TransitionGroup name="fade-inout" tag="div" @enter="onEnter" @leave="onLeave" @before-enter="onBeforeEnter" @after-enter="onAfterEnter" class="shortcut-wrap transition-30" :class="`shortcut-wrap-${store.stylesOption.shortcut?.options?.arrangement || 1}`">
-            <MenuCard class="shortcut" v-for="(shortcut, i) in shortcutList" :key="i" :data-index="i" v-show="visible" :shadow="showMenu" @click.stop="onJump(shortcut)" :data="shortcut"/>
+        <TransitionGroup
+            name="fade-inout"
+            tag="div"
+            @enter="onEnter"
+            @leave="onLeave"
+            @before-enter="onBeforeEnter"
+            @after-enter="onAfterEnter"
+            class="shortcut-wrap transition-30"
+            :class="`shortcut-wrap-${store.stylesOption.shortcut?.options?.arrangement || 1}`"
+            v-if="!store.stylesOption.shortcut?.options?.hide"
+        >
+            <MenuCard
+                class="shortcut"
+                v-for="(shortcut, i) in shortcutList"
+                :key="i"
+                :data-index="i"
+                v-show="visible"
+                :shadow="showMenu"
+                @click.stop="onJump(shortcut)"
+                :data="shortcut"
+                type="shortcut"
+            />
         </TransitionGroup>
     </div>
 </template>
@@ -38,18 +94,18 @@ const activeEngine = ref(0);
 const navigationRef = ref<HTMLDivElement>();
 const searchRef = ref<InstanceType<typeof SearchBar>>();
 const engine = computed(() => store.engine);
-const shortcutList = computed(() => store.shortcutList);
-const engineList = computed(() => [...store.engineList, { title: '', url: '', id: '' }]);
+const shortcutList = computed<Shortcut[]>(() => store.shortcutList);
+const engineList = computed<Shortcut[]>(() => store.engineList);
 const offset = ref(0);
 const hideEngine = ref(true);
 const { resize, windowHeight } = useResize();
 const animateTop = computed(() => `${windowHeight.value - offset.value - 10}px`);
 const realTop = computed(() => {
     // if (!store.stylesOption.wallpaper.styles?.top) return 0;
-    return `${(parseInt(store.stylesOption.navigation.styles?.top || '0') / 100) * window.innerHeight}px`
-})
+    return `${(parseInt(store.stylesOption.navigation.styles?.top || '0') / 100) * window.innerHeight}px`;
+});
 const onJump = (data: Shortcut) => {
-    if(showMenu?.value) return;
+    if (showMenu?.value) return;
     window.location.href = data.url;
 };
 /** 选择搜索引擎及清空搜索内容时锁定聚焦状态 */
@@ -78,8 +134,8 @@ const getDataSet = (el: HTMLDivElement) => {
         index: parseInt(el.dataset.index || '0'),
         type,
         totle: type == 'engine' ? engineList.value.length : shortcutList.value.length,
-        otherTotle: type !== 'engine' ? engineList.value.length : shortcutList.value.length
-    }
+        otherTotle: type !== 'engine' ? engineList.value.length : shortcutList.value.length,
+    };
 };
 const onBeforeEnter = (e: Element) => {
     const el = e as HTMLDivElement;
@@ -92,12 +148,11 @@ const onAfterEnter = (e: Element) => {
     if (index === totle - 1 && el.parentElement) {
         el.parentElement.style.position = 'relative';
     }
-
 };
 const onEnter = (e: Element) => {
     const { index, otherTotle, el, type } = getDataSet(e as HTMLDivElement);
     // 等待另一组动画执行完(速度过慢减少4个)
-    const transitiondelay = `${index * dely + ((otherTotle - 4) * dely) + 0.3}s`;
+    const transitiondelay = `${index * dely + (otherTotle - 4) * dely + 0.3}s`;
     el.style.transitionDelay = transitiondelay;
 };
 const onLeave = (e: Element) => {
@@ -107,7 +162,7 @@ const onLeave = (e: Element) => {
     if (el.parentElement && el.parentElement.style.position !== 'absolute') el.parentElement.style.position = 'absolute';
 };
 /** 选择默认引擎 */
-const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
+const onSelectEngine = (i: number, engine: (typeof engineList.value)[number]) => {
     if (engine.title) {
         activeEngine.value = i;
         store.UPDATE_ENGINE(engineList.value[i].id);
@@ -118,7 +173,8 @@ const onSelectEngine = (i: number, engine: typeof engineList.value[number]) => {
     lockEngine();
 };
 onMounted(() => {
-    activeEngine.value = engine.value ? engineList.value.findIndex(e => e.id === engine.value) : 0;
+    const i = engineList.value.findIndex(e => e.id === engine.value);
+    activeEngine.value = engine.value ? (i >= 0 ? i : 0) : 0;
     if (navigationRef.value) {
         offset.value = navigationRef.value.clientHeight;
         visible.value = true;
@@ -132,7 +188,7 @@ onMounted(() => {
 <style scoped>
 .navigation {
     transition: 0.3s all linear;
-    transition-delay: .2s;
+    transition-delay: 0.2s;
     top: v-bind(realTop);
 
     &.animate {
@@ -156,7 +212,6 @@ onMounted(() => {
     &.shortcut-wrap-1 {
         display: grid;
         grid-template-columns: repeat(var(--shortcut-custom-gridCol), minmax(0, 1fr));
-
     }
 
     &.shortcut-wrap-2 {
@@ -166,8 +221,8 @@ onMounted(() => {
 }
 
 .engine.active {
-    background-color: var(--engine-custom-background);
-    color: var(--engine-custom-color);
+    background-color: var(--engine-custom-background) !important;
+    color: var(--engine-custom-color)!important;
 }
 
 .splitWrap {

@@ -31,7 +31,7 @@ const { onEnter, onLeave, onClear } = useTransitionGroup(0.05, props.actions.len
 const onSelect = (data: Actions, i: number) => {
     setTimeout(() => {
         emit('select', data, i);
-    }, 200);
+    }, 0);
 };
 
 </script>

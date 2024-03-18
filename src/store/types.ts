@@ -91,6 +91,7 @@ export type Shortcut = {
     /** 背景颜色 */
     background?: string;
     sort?: number;
+    type: 'engine'|'shortcut'
 };
 /** 搜索引擎 */
 // export type Engine = { id: string } & Shortcut;

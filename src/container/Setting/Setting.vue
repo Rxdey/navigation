@@ -18,7 +18,7 @@
     <Teleport to="#home">
         <Transition name="flip-inout">
             <div class="editor-wrap" @click.stop="closeAdd" v-if="showAdd">
-                <div class="w-75% absolute right-0 bottom-5%">
+                <div class="w-70% absolute right-0 bottom-5%">
                     <AddShortcut :type="addType"/>
                 </div>
             </div>
@@ -39,7 +39,7 @@ const showAction = ref(false);
 const showPopup = ref(false);
 const showAdd = computed(() => statusStore.showAddMenu);
 const active = ref(0);
-const addType = ref('');
+const addType = ref<'engine' | 'shortcut'>('shortcut');
 
 const actions = [
     { name: '背景設置', action: EditWallpaper, scale: true },
